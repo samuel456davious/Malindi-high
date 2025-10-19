@@ -1,0 +1,137 @@
+/* General Page Layout */
+.chaplaincy-page {
+  font-family: "Inter", sans-serif;
+  color: #1f2937;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.chaplaincy-hero {
+  background: linear-gradient(135deg, #eafbea 0%, #fff 100%);
+  text-align: center;
+  padding: 5rem 1rem;
+  border-bottom: 3px solid #0a4a2f;
+}
+
+.hero-content h1 {
+  font-family: "Merriweather", serif;
+  font-size: 2.8rem;
+  color: #0a4a2f;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #374151;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Denomination Grid */
+.chaplaincy-grid {
+  padding: 4rem 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.faith-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faith-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Circle Colors */
+.icon-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon-circle.blue {
+  background-color: #2563eb;
+}
+
+.icon-circle.green {
+  background-color: #047857;
+}
+
+.icon-circle.red {
+  background-color: #dc2626;
+}
+
+.icon-circle.emerald {
+  background-color: #059669;
+}
+
+/* Card Text */
+.faith-card h2 {
+  font-size: 1.3rem;
+  color: #0a4a2f;
+  margin-bottom: 0.5rem;
+}
+
+.faith-card p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* Learn More Button */
+.learn-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #0a4a2f;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.learn-btn:hover {
+  background: #064e3b;
+}
+
+/* Mission Card */
+.mission-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ecfdf5;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  border-left: 6px solid #0a4a2f;
+}
+
+.mission-card h3 {
+  font-size: 1.8rem;
+  color: #0a4a2f;
+  margin-bottom: 0.8rem;
+}
+
+.mission-card p {
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.6;
+}

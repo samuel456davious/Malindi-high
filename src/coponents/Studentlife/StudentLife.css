@@ -1,0 +1,122 @@
+/* ====== GENERAL SECTION STYLES ====== */
+.student-life-section {
+  background-color: #f5f7f8;
+  padding: 80px 20px;
+}
+
+.student-life-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ====== HEADER ====== */
+.student-life-header h2 {
+  font-family: "Georgia", serif;
+  font-size: 2.5rem;
+  color: #004d40;
+  margin-bottom: 15px;
+}
+
+.student-life-header p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
+}
+
+/* ====== GRID ====== */
+.student-life-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* ====== ACTIVITY CARD ====== */
+.activity-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+.activity-card:hover {
+  border-color: #00796b;
+  box-shadow: 0 4px 12px rgba(0, 121, 107, 0.15);
+  transform: translateY(-4px);
+}
+
+/* ====== ICON ====== */
+.activity-icon {
+  background-color: #e0f2f1;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+/* ====== CONTENT ====== */
+.activity-content h3 {
+  font-family: "Georgia", serif;
+  font-size: 1.4rem;
+  color: #00695c;
+  margin-bottom: 10px;
+}
+
+.activity-content p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* ====== BUTTONS ====== */
+.activity-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.activity-btn {
+  background-color: transparent;
+  border: 1px solid #00695c;
+  color: #00695c;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.activity-btn:hover {
+  background-color: #00695c;
+  color: #fff;
+  border-color: #004d40;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .student-life-header h2 {
+    font-size: 2rem;
+  }
+
+  .student-life-header p {
+    font-size: 1rem;
+  }
+
+  .activity-card {
+    padding: 20px;
+  }
+
+  .activity-btn {
+    font-size: 0.9rem;
+  }
+}

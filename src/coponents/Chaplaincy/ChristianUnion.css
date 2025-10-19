@@ -1,0 +1,165 @@
+.cu-page {
+  font-family: "Inter", sans-serif;
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+/* Hero Section */
+.cu-hero {
+  text-align: center;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  padding: 5rem 1rem 4rem;
+  border-bottom: 3px solid #2563eb;
+}
+
+.cu-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cu-back-btn {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cu-hero-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cu-hero h1 {
+  font-family: "Merriweather", serif;
+  font-size: 2.5rem;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.cu-hero p {
+  font-size: 1.1rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* Schedule */
+.cu-schedule {
+  padding: 4rem 1rem;
+  background: #fff;
+}
+
+.cu-schedule-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #f0f9ff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cu-schedule-card h2 {
+  color: #2563eb;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cu-schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #e0f2fe;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.cu-schedule-item h3 {
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.cu-schedule-item p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Activities */
+.cu-activities {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: #fff;
+}
+
+.cu-activities h2 {
+  font-size: 2rem;
+  color: #2563eb;
+  margin-bottom: 2rem;
+}
+
+.cu-activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.cu-activity-card {
+  background: #f0f9ff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.cu-activity-card:hover {
+  transform: translateY(-4px);
+}
+
+.cu-activity-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+/* About Section */
+.cu-about {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  background: #eff6ff;
+  border-top: 3px solid #2563eb;
+}
+
+.cu-about h2 {
+  color: #2563eb;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.cu-about p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.cu-about h3 {
+  font-size: 1.2rem;
+  color: #2563eb;
+  margin-top: 1.5rem;
+}

@@ -1,0 +1,144 @@
+.about-section {
+  background-color: #f8fafc;
+  padding: 80px 20px;
+}
+
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-header h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+}
+
+.about-header p {
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+/* === Mission, Vision, Motto === */
+.about-values-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+.about-value-box {
+  background: #fff;
+  border-left: 5px solid #007bff;
+  padding: 25px 30px;
+  width: 320px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.about-value-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.about-value-box h3 {
+  font-size: 1.5rem;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.about-value-box p {
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.mission {
+  border-left-color: #007bff;
+}
+
+.vision {
+  border-left-color: #28a745;
+}
+
+.motto {
+  border-left-color: #ff9800;
+}
+
+/* === Core Values Section === */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.about-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 30px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.about-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+}
+
+.about-icon-wrapper {
+  background: #eaf3ff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-icon {
+  color: #007bff;
+  width: 28px;
+  height: 28px;
+}
+
+.about-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.about-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* === Button === */
+.about-button {
+  margin-top: 20px;
+}
+
+.about-learn-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.about-learn-btn:hover {
+  background-color: #0056b3;
+}

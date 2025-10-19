@@ -1,0 +1,128 @@
+/* Navigation Bar Styles */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e5e7eb;
+  font-family: "Inter", sans-serif;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #2563eb;
+}
+
+.nav-title {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+/* Desktop Links */
+.nav-links {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.nav-link {
+  color: #111827;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #2563eb;
+}
+
+/* Apply Button */
+.apply-btn {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.apply-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.apply-btn.full {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Mobile Menu Button */
+.menu-btn {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #111827;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  display: block;
+  padding: 1rem 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.mobile-link {
+  display: block;
+  padding: 0.5rem 0;
+  color: #111827;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-link:hover {
+  color: #2563eb;
+}
+
+@media (min-width: 768px) {
+  .mobile-nav {
+    display: none;
+  }
+}
