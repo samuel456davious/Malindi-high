@@ -1,0 +1,480 @@
+/* Password Reset Component Styles */
+.pwd-reset-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.pwd-reset-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid #e1e5e9;
+}
+
+.pwd-reset-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pwd-reset-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.pwd-reset-icon svg {
+  filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.2));
+}
+
+.pwd-reset-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.pwd-reset-subtitle {
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pwd-reset-form {
+  margin-bottom: 24px;
+}
+
+.pwd-reset-form-group {
+  margin-bottom: 24px;
+}
+
+.pwd-reset-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.pwd-reset-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.pwd-reset-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.pwd-reset-input:disabled {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+}
+
+.pwd-reset-button {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pwd-reset-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.pwd-reset-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pwd-reset-button--loading {
+  pointer-events: none;
+}
+
+.pwd-reset-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: pwd-reset-spin 0.8s linear infinite;
+}
+
+@keyframes pwd-reset-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pwd-reset-message {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pwd-reset-message--success {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+}
+
+.pwd-reset-message--error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.pwd-reset-message-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pwd-reset-message-text {
+  flex: 1;
+}
+
+.pwd-reset-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.pwd-reset-footer-text {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.pwd-reset-footer-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.pwd-reset-footer-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .pwd-reset-container {
+    padding: 16px;
+  }
+  
+  .pwd-reset-card {
+    padding: 32px 24px;
+  }
+  
+  .pwd-reset-title {
+    font-size: 24px;
+  }
+}
+
+
+/*  */
+/* Password Reset Confirmation Styles */
+.pwd-reset-confirm-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.pwd-reset-confirm-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid #e1e5e9;
+}
+
+.pwd-reset-confirm-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pwd-reset-confirm-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.pwd-reset-confirm-icon svg {
+  filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.2));
+}
+
+.pwd-reset-confirm-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.pwd-reset-confirm-subtitle {
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pwd-reset-confirm-form {
+  margin-bottom: 24px;
+}
+
+.pwd-reset-confirm-form-group {
+  margin-bottom: 20px;
+}
+
+.pwd-reset-confirm-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.pwd-reset-confirm-requirement {
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.pwd-reset-confirm-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.pwd-reset-confirm-input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.pwd-reset-confirm-input:disabled {
+  background-color: #f9fafb;
+  cursor: not-allowed;
+}
+
+/* Password Strength Indicator */
+.pwd-reset-confirm-strength {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.pwd-reset-confirm-strength-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.pwd-reset-confirm-strength-fill {
+  height: 100%;
+  background: #ef4444;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+.pwd-reset-confirm-strength-bar--weak .pwd-reset-confirm-strength-fill {
+  background: #ef4444;
+  width: 33% !important;
+}
+
+.pwd-reset-confirm-strength-bar--strong .pwd-reset-confirm-strength-fill {
+  background: #10b981;
+}
+
+.pwd-reset-confirm-strength-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.pwd-reset-confirm-button {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pwd-reset-confirm-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+.pwd-reset-confirm-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pwd-reset-confirm-button--loading {
+  pointer-events: none;
+}
+
+.pwd-reset-confirm-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: pwd-reset-confirm-spin 0.8s linear infinite;
+}
+
+@keyframes pwd-reset-confirm-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Message Styles */
+.pwd-reset-confirm-message {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pwd-reset-confirm-message--success {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.pwd-reset-confirm-message--error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.pwd-reset-confirm-message--warning {
+  background-color: #fffbeb;
+  border: 1px solid #fed7aa;
+  color: #ea580c;
+}
+
+.pwd-reset-confirm-message-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pwd-reset-confirm-message-content {
+  flex: 1;
+}
+
+.pwd-reset-confirm-message-text {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.pwd-reset-confirm-redirect {
+  font-size: 12px;
+  color: #059669;
+  font-style: italic;
+}
+
+/* Footer Styles */
+.pwd-reset-confirm-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.pwd-reset-confirm-footer-text {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.pwd-reset-confirm-footer-link {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.pwd-reset-confirm-footer-link:hover {
+  color: #059669;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .pwd-reset-confirm-container {
+    padding: 16px;
+  }
+  
+  .pwd-reset-confirm-card {
+    padding: 32px 24px;
+  }
+  
+  .pwd-reset-confirm-title {
+    font-size: 24px;
+  }
+  
+  .pwd-reset-confirm-strength {
+    padding: 12px;
+  }
+}

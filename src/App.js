@@ -18,6 +18,9 @@ import Dashboard from "./coponents/Secretary/Dashboard"
 import PendingUsers from "./coponents/Secretary/PendingUsers";
 import Register from "./coponents/Authentication/Register";
 import ApproveUser from "./coponents/Secretary/ApproveUser";
+import ResetAccount from "./coponents/Authentication/ResetAccount";
+import ResetPassword from "./coponents/Authentication/ResetPassword";
+import RequestReset from "./coponents/Authentication/RequestReset";
 
 const App = () => {
   return (
@@ -36,6 +39,9 @@ const App = () => {
           <Route path="/pending_users" element={<PendingUsers/>}/>
           <Route path="/approve" element={<ApproveUser/>}/>
           <Route path="/register" element={<Register/>}/>
+          {/* <Route path="/reset" element={<ResetAccount/>}/> */}
+          <Route path="/reset" element={<RequestReset />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* ✅ Protected route example */}
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>

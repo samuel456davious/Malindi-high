@@ -1,216 +1,385 @@
-/* ===== GENERAL ===== */
-.homepage {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-  background-color: #fafafa;
-  scroll-behavior: smooth;
-}
-
-/* ===== NAVBAR ===== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #004d40;
-  color: white;
-  padding: 15px 30px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
-  color: #ffca28;
-}
-
-/* ===== HAMBURGER MENU ===== */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.hamburger span {
-  background: white;
-  height: 3px;
-  width: 25px;
-  margin: 4px;
-  transition: all 0.3s;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* ===== HERO SECTION ===== */
-.hero {
-  background: linear-gradient(to right, #00695c, #004d40);
-  color: white;
-  text-align: center;
-  padding: 120px 20px;
-}
-
-.hero h1 {
-  font-size: 2.8rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin: 10px 0 25px;
-}
-
-.learn-more-btn {
-  background-color: #ffca28;
-  color: #004d40;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.learn-more-btn:hover {
-  background-color: #ffc107;
-}
-
-/* ===== SECTIONS ===== */
-section {
-  padding: 60px 20px;
-  text-align: center;
-}
-
-section h2 {
-  color: #004d40;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-section p {
-  max-width: 800px;
-  margin: 0 auto;
+/* Malindi High School Homepage Styles */
+.mhs-homepage {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   line-height: 1.6;
-  font-size: 1.1rem;
-  color: #555;
+  color: #1f2937;
 }
 
-/* ===== CLASSROOM ===== */
-.classroom {
-  background-color: #e8f5e9;
+.mhs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.join-class-btn {
-  background-color: #00796b;
+/* Welcome Section */
+.mhs-welcome-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.mhs-welcome-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.mhs-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.mhs-section-subtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.mhs-welcome-description {
+  font-size: 1.125rem;
+  color: #475569;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.mhs-welcome-stats {
+  display: flex;
+  gap: 40px;
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mhs-stat-item {
+  text-align: center;
+}
+
+.mhs-stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 4px;
+}
+
+.mhs-stat-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Buttons */
+.mhs-primary-button {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   color: white;
   border: none;
-  padding: 10px 25px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
-.join-class-btn:hover {
-  background-color: #004d40;
+.mhs-primary-button:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
-/* ===== NEWS ===== */
-.news {
-  background-color: #f4f4f4;
+.mhs-large-button {
+  padding: 16px 32px;
+  font-size: 1.125rem;
 }
 
-.news-container {
+.mhs-secondary-button {
+  background: white;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mhs-secondary-button:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.mhs-text-button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.mhs-text-button:hover {
+  color: #1d4ed8;
+}
+
+.mhs-button-icon {
+  font-size: 1.25rem;
+}
+
+/* Welcome Visual */
+.mhs-welcome-visual {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 25px;
-  margin-top: 25px;
 }
 
-.news-item {
-  background-color: #fff;
-  border-radius: 10px;
-  width: 280px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+.mhs-visual-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  max-width: 300px;
 }
 
-.news-item:hover {
+.mhs-card-image {
+  height: 160px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mhs-card-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') center/40px no-repeat;
+  opacity: 0.2;
+}
+
+.mhs-card-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.mhs-card-content p {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* News Section */
+.mhs-news-section {
+  padding: 80px 0;
+  background: white;
+}
+
+.mhs-section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.mhs-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 48px;
+}
+
+.mhs-news-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mhs-news-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
-.news-item h3 {
-  color: #00695c;
-  margin-bottom: 10px;
+.mhs-news-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #10b981;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
-.news-item .date {
-  color: #888;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+.mhs-news-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+  line-height: 1.4;
 }
 
+.mhs-news-meta {
+  margin-bottom: 16px;
+}
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background: #004d40;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
+.mhs-news-date {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.mhs-news-excerpt {
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.mhs-section-footer {
+  text-align: center;
+}
+
+/* Classroom Section */
+.mhs-classroom-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+}
+
+.mhs-classroom-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.mhs-classroom-section .mhs-section-title,
+.mhs-classroom-section .mhs-section-subtitle {
+  color: white;
+}
+
+.mhs-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0;
+}
+
+.mhs-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 1.125rem;
+  border-bottom: 1px solid #334155;
+}
+
+.mhs-feature-item:last-child {
+  border-bottom: none;
+}
+
+.mhs-feature-icon {
+  font-size: 1.5rem;
+}
+
+.mhs-classroom-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.mhs-platform-preview {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.mhs-preview-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.mhs-preview-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.mhs-preview-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #334155;
+}
+
+.mhs-preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mhs-preview-item {
+  height: 60px;
+  background: #1e293b;
+  border-radius: 6px;
+  border: 1px solid #334155;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .mhs-welcome-content,
+  .mhs-classroom-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .hero h1 {
+  
+  .mhs-section-title {
     font-size: 2rem;
   }
-
-  .news-container {
-    flex-direction: column;
+  
+  .mhs-news-grid {
+    grid-template-columns: 1fr;
   }
+}
 
-  .news-item {
-    width: 90%;
+@media (max-width: 768px) {
+  .mhs-container {
+    padding: 0 16px;
+  }
+  
+  .mhs-welcome-section,
+  .mhs-news-section,
+  .mhs-classroom-section {
+    padding: 60px 0;
+  }
+  
+  .mhs-welcome-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .mhs-section-title {
+    font-size: 1.75rem;
   }
 }

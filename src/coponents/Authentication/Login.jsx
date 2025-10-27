@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState(''); // ✅ updated
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -16,9 +16,10 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     setMsg('');
-    
+
     try {
-      const res = await API.post('/login', { username, password });
+      // ✅ send "identifier" instead of "username"
+      const res = await API.post('/login', { identifier, password });
       login(res.data.access_token, res.data.role);
       navigate('/dashboard');
     } catch (err) {
@@ -38,16 +39,16 @@ export default function Login() {
 
         <form onSubmit={handleLogin} className="auth-form">
           <div className="form-group">
-            <label htmlFor="username" className="form-label">
+            <label htmlFor="identifier" className="form-label">
               Username or Email
             </label>
             <input
-              id="username"
+              id="identifier"
               type="text"
               className="form-input"
               placeholder="Enter your username or email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)} // ✅ updated
               required
               disabled={isLoading}
             />
@@ -74,8 +75,8 @@ export default function Login() {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className={`auth-button ${isLoading ? 'auth-button--loading' : ''}`}
             disabled={isLoading}
           >
@@ -103,6 +104,10 @@ export default function Login() {
             <Link to="/register" className="auth-footer-link">
               Create one here
             </Link>
+          </p>
+          <p className="auth-footer-text">
+            Forgot your password?{' '}
+            <a href="/reset" className="auth-footer-link">Reset it here</a>
           </p>
         </div>
       </div>
