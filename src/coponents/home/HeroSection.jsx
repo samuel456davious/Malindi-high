@@ -1,64 +1,157 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import './HeroSection.css';
+import schoolgate from "../images/school-gate.jpg"
 
 const HeroSection = () => {
-  const slides = [
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  const images = [
     {
-      image: "https://images.unsplash.com/photo-1601597113720-6ec2e5c42f63",
-      title: "Welcome to Malindi High School",
-      subtitle: "Empowering young minds through education and character.",
+      src: schoolgate,
+      alt: "Malindi High School Main Gate",
+      title: "Gateway to Excellence",
+      description: "Where discipline, determination, and distinction open every door to success"
     },
     {
-      image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e",
-      title: "Excellence in Academics & Discipline",
-      subtitle: "Striving for greatness every single day.",
+      src: "/images/school-bus.jpg",
+      alt: "Malindi High School Bus",
+      title: "Journey to Success",
+      description: "Every road leads to knowledge, discipline, and a brighter future"
     },
     {
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1",
-      title: "A Place to Learn, Grow & Lead",
-      subtitle: "Building leaders of tomorrow through knowledge and faith.",
+      src: "/images/administration-block.jpg",
+      alt: "School Administration Block",
+      title: "The Pillar of Leadership",
+      description: "Guided by wisdom, driven by purpose — where vision shapes the Malindi High legacy."
     },
+    {
+      src: "/images/assembly-ground.jpg",
+      alt: "School Assembly Ground",
+      title: "United in Purpose",
+      description: "Where every voice comes together in discipline, pride, and the Malindi High spirit."
+    },
+    {
+      src:"",
+      alt:"School library photo",
+      title:"Knowledge Is Power",
+      description:"Empowering minds through books, research, and innovation"
+    },
+    {
+      src:"",
+      alt:"School computer lab",
+      title:"Empowering Digital Learners",
+      description:"Equipping students with 21st-century skills for a connected world."
+    }
   ];
 
-  return (
-    <section className="relative w-full h-[90vh] overflow-hidden">
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        loop
-        className="w-full h-full"
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <div
-              className="w-full h-full bg-cover bg-center flex items-center justify-center text-center relative"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="absolute inset-0 bg-black/50" />
-              <div className="relative z-10 text-white px-4">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                  {slide.title}
-                </h1>
-                <p className="text-lg md:text-2xl mb-8">{slide.subtitle}</p>
+  // Check screen size on mount and resize
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-                {/* Inline custom button (no external component needed) */}
-                <Link
-                  to="/about-us"
-                  className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200"
-                >
-                  Learn More
-                </Link>
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % images.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  return (
+    <section className="hero-section">
+      <div className="hero-slider">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${image.src})` }}
+          >
+            <div className="slide-overlay"></div>
+            <div className="slide-content">
+              <h1 className="slide-title">{image.title}</h1>
+              <p className="slide-description">{image.description}</p>
+              <div className="hero-buttons">
+                <button className="btn btn-primary">Admissions</button>
+                <button className="btn btn-secondary">Learn More</button>
               </div>
             </div>
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
+      </div>
+
+      {/* Navigation Arrows - Hidden on mobile for cleaner look */}
+      {!isMobile && (
+        <>
+          <button className="slider-nav prev" onClick={prevSlide}>
+            <span>‹</span>
+          </button>
+          <button className="slider-nav next" onClick={nextSlide}>
+            <span>›</span>
+          </button>
+        </>
+      )}
+
+      {/* Slide Indicators - Mobile optimized */}
+      <div className="slide-indicators">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={`indicator ${index === currentSlide ? 'active' : ''}`}
+            onClick={() => goToSlide(index)}
+          />
+        ))}
+      </div>
+
+      {/* School Info Bar - Stacked on mobile */}
+      <div className="school-info-bar">
+        <div className="container">
+          <div className="info-items">
+            <div className="info-item">
+              <span className="info-number">50+</span>
+              <span className="info-label">Years of Excellence</span>
+            </div>
+            <div className="info-item">
+              <span className="info-number">1000+</span>
+              <span className="info-label">Students</span>
+            </div>
+            <div className="info-item">
+              <span className="info-number">98%</span>
+              <span className="info-label">Success Rate</span>
+            </div>
+            <div className="info-item">
+              <span className="info-number">50+</span>
+              <span className="info-label">Qualified Staff</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Swipe Instructions */}
+      {isMobile && (
+        <div className="mobile-swipe-hint">
+          <span>Swipe to navigate</span>
+        </div>
+      )}
     </section>
   );
 };

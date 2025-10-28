@@ -45,7 +45,7 @@ const Home = () => {
       {/* ===== MAIN CONTENT SECTIONS ===== */}
       <main className="mhs-main-content">
         {/* ===== WELCOME SECTION ===== */}
-        <section id="home" className="mhs-welcome-section">
+        {/* <section id="home" className="mhs-welcome-section">
           <div className="mhs-container">
             <div className="mhs-welcome-content">
               <div className="mhs-welcome-text">
@@ -91,7 +91,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ===== LATEST NEWS ===== */}
         <section id="latestnews" className="mhs-news-section">
