@@ -1,0 +1,196 @@
+/* PendingUsersManagement.css */
+.pending-users-management__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pending-users-management__main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pending-users-management__title {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.pending-users-management__list-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.pending-users-management__user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pending-users-management__user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #ecf0f1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.pending-users-management__user-item:hover {
+  background: #f8f9fa;
+  transform: translateX(4px);
+}
+
+.pending-users-management__user-item--selected {
+  background: #e3f2fd !important;
+  border-left: 4px solid #2196f3;
+}
+
+.pending-users-management__user-item:last-child {
+  border-bottom: none;
+}
+
+.pending-users-management__username {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.pending-users-management__user-role {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.pending-users-management__approve-section {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.pending-users-management__approve-card {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.pending-users-management__approve-title {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.pending-users-management__approve-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pending-users-management__role-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: #ffffff;
+}
+
+.pending-users-management__role-select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.pending-users-management__button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.pending-users-management__approve-btn {
+  padding: 0.75rem 2rem;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pending-users-management__approve-btn:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.pending-users-management__cancel-btn {
+  padding: 0.75rem 2rem;
+  background: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pending-users-management__cancel-btn:hover {
+  background: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+.pending-users-management__message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.pending-users-management__message--success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.pending-users-management__message--error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pending-users-management__container {
+    padding: 1rem;
+  }
+  
+  .pending-users-management__user-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .pending-users-management__button-group {
+    flex-direction: column;
+  }
+  
+  .pending-users-management__approve-btn,
+  .pending-users-management__cancel-btn {
+    width: 100%;
+  }
+}

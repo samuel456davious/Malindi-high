@@ -21,6 +21,8 @@ import ApproveUser from "./coponents/Secretary/ApproveUser";
 import ResetAccount from "./coponents/Authentication/ResetAccount";
 import ResetPassword from "./coponents/Authentication/ResetPassword";
 import RequestReset from "./coponents/Authentication/RequestReset";
+import TeacherDashboard from "./coponents/Teachers/TeachersDashboard";
+import NewsEventForm from "./coponents/Secretary/NewsEventForm";
 
 const App = () => {
   return (
@@ -45,6 +47,7 @@ const App = () => {
 
           {/* ✅ Protected route example */}
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>
+          <Route path="/announcements" element={<ProtectedRoute> <NewsEventForm/>  </ProtectedRoute> }/>
           <Route path="/dashboard" element={<ProtectedRoute> <Dashboard />  </ProtectedRoute> }/>
 
           {/* Optional: handle 404s */}
