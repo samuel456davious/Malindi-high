@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer";
 import Navigation from "./Navigation";
 import HeroSection from "./HeroSection";
  import "./Home.css"
+import SchoolUpdates from "./SchoolUpdates";
 
 const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -94,7 +95,7 @@ const Home = () => {
         </section> */}
 
         {/* ===== LATEST NEWS ===== */}
-        <section id="latestnews" className="mhs-news-section">
+        {/* <section id="latestnews" className="mhs-news-section">
           <div className="mhs-container">
             <div className="mhs-section-header">
               <h2 className="mhs-section-title">Latest News & Events</h2>
@@ -123,7 +124,8 @@ const Home = () => {
               </button>
             </div>
           </div>
-        </section>
+        </section> */}
+        <SchoolUpdates/>
 
         {/* ===== STUDENT LIFE ===== */}
         <StudentLife />

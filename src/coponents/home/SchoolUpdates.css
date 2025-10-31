@@ -1,0 +1,371 @@
+/* School Updates Professional Styling */
+.school-updates-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Loading State */
+.school-updates-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.school-updates-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: school-updates-spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes school-updates-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Section Styling */
+.school-updates-section {
+  margin-bottom: 3rem;
+}
+
+.school-updates-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.school-updates-header {
+  flex: 1;
+}
+
+.school-updates-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.school-updates-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+/* Carousel Controls */
+.school-updates-carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.school-updates-carousel-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.school-updates-carousel-btn:hover {
+  background: #3498db;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.school-updates-carousel-btn:active {
+  transform: scale(0.95);
+}
+
+/* Carousel Container */
+.school-updates-carousel-container {
+  position: relative;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.school-updates-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 1rem 0.5rem;
+  margin: 0 -0.5rem;
+}
+
+.school-updates-carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Card Styling for Carousel */
+.school-updates-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e1e8ed;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 320px;
+  max-width: 380px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+.school-updates-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.school-updates-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.school-updates-card:hover::before {
+  opacity: 1;
+}
+
+/* News Card Specific */
+.school-updates-news-card::before {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Event Card Specific */
+.school-updates-event-card {
+  border-left: 4px solid #e74c3c;
+}
+
+.school-updates-event-card::before {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+/* Card Header */
+.school-updates-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.school-updates-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.school-updates-date {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  background: #f8f9fa;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-weight: 500;
+  align-self: flex-start;
+}
+
+/* Content Styling */
+.school-updates-summary {
+  font-size: 1rem;
+  color: #34495e;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.school-updates-content {
+  font-size: 0.9rem;
+  color: #5d6d7e;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Event Details */
+.school-updates-event-details {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.school-updates-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.school-updates-detail-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.875rem;
+}
+
+.school-updates-detail-value {
+  color: #5d6d7e;
+  font-size: 0.875rem;
+}
+
+/* Footer */
+.school-updates-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+.school-updates-author {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+/* Empty State */
+.school-updates-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #7f8c8d;
+}
+
+.school-updates-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.school-updates-empty h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #5d6d7e;
+}
+
+.school-updates-empty p {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* Scroll Indicators */
+.school-updates-carousel-container::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.school-updates-carousel-container.scrollable::after {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .school-updates-container {
+    padding: 1rem;
+  }
+  
+  .school-updates-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .school-updates-title {
+    font-size: 1.5rem;
+  }
+  
+  .school-updates-carousel-controls {
+    align-self: flex-end;
+  }
+  
+  .school-updates-card {
+    min-width: 280px;
+    padding: 1.25rem;
+  }
+  
+  .school-updates-carousel {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .school-updates-card {
+    min-width: 260px;
+    padding: 1rem;
+  }
+  
+  .school-updates-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .school-updates-carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  .school-updates-carousel {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .school-updates-card {
+    scroll-snap-align: start;
+  }
+  
+  .school-updates-carousel-btn {
+    display: flex; /* Keep buttons visible on touch devices */
+  }
+}

@@ -1,37 +1,61 @@
 import React, { useState } from "react";
-import "./NewsEventForm.css"
+import "./NewsEventForm.css";
+import API from "../Authentication/api";
+
 export default function NewsEventForm({ token, onSuccess }) {
   const [form, setForm] = useState({
     title: "",
     type: "news",
     summary: "",
     content: "",
-    source: "",
-    publish_date: "",
+    date: "",
     event_start: "",
-    event_end: "",
     location: "",
-    status: "active",
-    tags: "",
-    external_link: "",
-    visibility: "public",
+    visibility: "public", // ✅ added
   });
 
   const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState(null); // { type: 'success'|'error', text: '' }
-
+  const [message, setMessage] = useState(null);
   const jwt = token || window.localStorage.getItem("access_token") || "";
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setForm((s) => ({ ...s, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
   function validate() {
-    if (!form.title.trim() || !form.type.trim() || !form.content.trim()) {
-      setMessage({ type: "error", text: "Title, type and content are required fields." });
+    if (!form.title.trim() || !form.summary.trim() || !form.content.trim()) {
+      setMessage({
+        type: "error",
+        text: "Title, Summary, and Content are required fields.",
+      });
       return false;
     }
+
+    if (form.type === "news" && !form.date) {
+      setMessage({
+        type: "error",
+        text: "Please select a date for the news item.",
+      });
+      return false;
+    }
+
+    if (form.type === "event" && (!form.location || !form.event_start)) {
+      setMessage({
+        type: "error",
+        text: "Event start and location are required.",
+      });
+      return false;
+    }
+
+    if (!["public", "private", "draft"].includes(form.visibility.toLowerCase())) {
+      setMessage({
+        type: "error",
+        text: "Visibility must be one of: public, private, or draft.",
+      });
+      return false;
+    }
+
     return true;
   }
 
@@ -40,301 +64,241 @@ export default function NewsEventForm({ token, onSuccess }) {
     setMessage(null);
 
     if (!validate()) return;
-
     setSubmitting(true);
 
     try {
-      // Build FormData so endpoint accepts form-data or x-www-form-urlencoded from clients
-      const fd = new FormData();
-      fd.append("title", form.title);
-      fd.append("type", form.type);
-      fd.append("summary", form.summary);
-      fd.append("content", form.content);
-      if (form.source) fd.append("source", form.source);
-      if (form.publish_date) fd.append("publish_date", form.publish_date);
-      if (form.event_start) fd.append("event_start", form.event_start);
-      if (form.event_end) fd.append("event_end", form.event_end);
-      if (form.location) fd.append("location", form.location);
-      fd.append("status", form.status);
-      if (form.tags) fd.append("tags", form.tags); // server can parse CSV or JSON string
-      if (form.external_link) fd.append("external_link", form.external_link);
-      fd.append("visibility", form.visibility);
+      const endpoint = form.type === "event" ? "/event" : "/news";
 
-      const res = await fetch("/news-events", {
-        method: "POST",
+      const payload =
+        form.type === "event"
+          ? {
+              name: form.title,
+              summary: form.summary,
+              date: form.event_start?.split("T")[0],
+              location: form.location,
+              description: form.content,
+              visibility: form.visibility, // ✅ added
+            }
+          : {
+              title: form.title,
+              summary: form.summary,
+              content: form.content,
+              date: form.date,
+              visibility: form.visibility, // ✅ added
+            };
+
+      const res = await API.post(endpoint, payload, {
         headers: {
-          // IMPORTANT: Do not set Content-Type when using FormData — the browser sets the boundary.
           Authorization: jwt ? `Bearer ${jwt}` : undefined,
-          // Accept: 'application/json' // optional
+          "Content-Type": "application/json",
         },
-        body: fd,
       });
 
-      const result = await res.json().catch(() => ({}));
+      setMessage({
+        type: "success",
+        text: res.data.message || "Created successfully.",
+      });
 
-      if (res.ok) {
-        setMessage({ type: "success", text: result.msg || "Item created successfully." });
-        setForm({
-          title: "",
-          type: "news",
-          summary: "",
-          content: "",
-          source: "",
-          publish_date: "",
-          event_start: "",
-          event_end: "",
-          location: "",
-          status: "active",
-          tags: "",
-          external_link: "",
-          visibility: "public",
-        });
-        if (typeof onSuccess === "function") onSuccess(result);
-      } else if (res.status === 401) {
-        setMessage({ type: "error", text: "Unauthorized — please log in." });
-      } else {
-        setMessage({ type: "error", text: result.msg || `Error ${res.status}` });
-      }
+      setForm({
+        title: "",
+        type: "news",
+        summary: "",
+        content: "",
+        date: "",
+        event_start: "",
+        location: "",
+        visibility: "public",
+      });
+
+      if (typeof onSuccess === "function") onSuccess(res.data);
     } catch (err) {
-      console.error("Create news/event error:", err);
-      setMessage({ type: "error", text: "Network or server error." });
+      console.error("Create error:", err.response?.data || err.message);
+      const errMsg =
+        err.response?.data?.error ||
+        err.response?.data?.msg ||
+        "Network or server error.";
+      setMessage({ type: "error", text: errMsg });
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <form className="ne-form-container" onSubmit={handleSubmit} noValidate>
-      <div className="ne-form-header">
-        <h2 className="ne-form-title">Create News / Event</h2>
-        <p className="ne-form-subtitle">Fill in the details below to create a new announcement</p>
+    <form className="nexus-form-container" onSubmit={handleSubmit} noValidate>
+      <div className="nexus-form-header">
+        <h2 className="nexus-form-title">
+          {form.type === "news" ? "Create News Article" : "Create Event"}
+        </h2>
+        <p className="nexus-form-subtitle">
+          Fill in the details below to create a new{" "}
+          {form.type === "news" ? "news article" : "event"} for your organization.
+        </p>
       </div>
 
       {message && (
         <div
-          className={`ne-form-alert ne-form-alert--${message.type === "success" ? "success" : "error"}`}
-          role="status"
+          className={`nexus-form-alert nexus-alert--${
+            message.type === "success" ? "success" : "error"
+          }`}
         >
-          <span className="ne-form-alert-text">{message.text}</span>
+          <span className="nexus-alert-icon">
+            {message.type === "success" ? "✓" : "!"}
+          </span>
+          {message.text}
         </div>
       )}
 
-      <div className="ne-form-section">
-        <h3 className="ne-form-section-title">Basic Information</h3>
-        
-        <div className="ne-form-grid">
-          <div className="ne-form-field">
-            <label className="ne-form-label">
-              Title <span className="ne-form-required">*</span>
-            </label>
-            <input
-              className="ne-form-input"
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-              placeholder="Enter a compelling headline"
-              required
-            />
-          </div>
-
-          <div className="ne-form-field">
-            <label className="ne-form-label">
-              Type <span className="ne-form-required">*</span>
-            </label>
-            <select 
-              name="type" 
-              value={form.type} 
-              onChange={handleChange} 
-              className="ne-form-select" 
-              required
-            >
-              <option value="news">News</option>
-              <option value="event">Event</option>
-              <option value="announcement">Announcement</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="ne-form-field">
-          <label className="ne-form-label">Summary</label>
-          <input
-            className="ne-form-input"
-            name="summary"
-            value={form.summary}
+      <div className="nexus-form-grid">
+        {/* Type Selector */}
+        <div className="nexus-form-group">
+          <label className="nexus-form-label">Content Type</label>
+          <select
+            name="type"
+            value={form.type}
             onChange={handleChange}
-            placeholder="Brief summary for preview cards and listings"
-          />
-          <p className="ne-form-hint">Keep it concise - this will be used in previews and listings</p>
+            className="nexus-form-select"
+          >
+            <option value="news">News Article</option>
+            <option value="event">Event</option>
+          </select>
         </div>
 
-        <div className="ne-form-field">
-          <label className="ne-form-label">
-            Content <span className="ne-form-required">*</span>
+        {/* ✅ Visibility Selector */}
+        <div className="nexus-form-group">
+          <label className="nexus-form-label">
+            Visibility <span className="nexus-required">*</span>
           </label>
-          <textarea
-            className="ne-form-textarea"
-            name="content"
-            value={form.content}
+          <select
+            name="visibility"
+            value={form.visibility}
             onChange={handleChange}
-            placeholder="Write the full content here..."
-            rows={6}
+            className="nexus-form-select"
+          >
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+
+        {/* Shared Fields */}
+        <div className="nexus-form-group">
+          <label className="nexus-form-label">
+            Title <span className="nexus-required">*</span>
+          </label>
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            className="nexus-form-input"
+            placeholder="Enter a compelling title"
             required
           />
         </div>
-      </div>
 
-      <div className="ne-form-section">
-        <h3 className="ne-form-section-title">Timing & Location</h3>
-        
-        <div className="ne-form-grid">
-          <div className="ne-form-field">
-            <label className="ne-form-label">Source</label>
-            <input 
-              className="ne-form-input" 
-              name="source" 
-              value={form.source} 
-              onChange={handleChange} 
-              placeholder="Original source if applicable"
-            />
-          </div>
-
-          <div className="ne-form-field">
-            <label className="ne-form-label">Publish Date</label>
-            <input
-              className="ne-form-input"
-              type="datetime-local"
-              name="publish_date"
-              value={form.publish_date}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="ne-form-grid">
-          <div className="ne-form-field">
-            <label className="ne-form-label">Event Start</label>
-            <input
-              className="ne-form-input"
-              type="datetime-local"
-              name="event_start"
-              value={form.event_start}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="ne-form-field">
-            <label className="ne-form-label">Event End</label>
-            <input
-              className="ne-form-input"
-              type="datetime-local"
-              name="event_end"
-              value={form.event_end}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="ne-form-field">
-          <label className="ne-form-label">Location</label>
-          <input 
-            className="ne-form-input" 
-            name="location" 
-            value={form.location} 
-            onChange={handleChange} 
-            placeholder="Physical or virtual location"
+        <div className="nexus-form-group">
+          <label className="nexus-form-label">
+            Summary <span className="nexus-required">*</span>
+          </label>
+          <input
+            name="summary"
+            value={form.summary}
+            onChange={handleChange}
+            className="nexus-form-input"
+            placeholder="Brief overview or teaser"
           />
         </div>
-      </div>
 
-      <div className="ne-form-section">
-        <h3 className="ne-form-section-title">Settings & Metadata</h3>
-        
-        <div className="ne-form-grid">
-          <div className="ne-form-field">
-            <label className="ne-form-label">Status</label>
-            <select 
-              name="status" 
-              value={form.status} 
-              onChange={handleChange} 
-              className="ne-form-select"
-            >
-              <option value="active">Active</option>
-              <option value="archived">Archived</option>
-              <option value="draft">Draft</option>
-            </select>
-          </div>
-
-          <div className="ne-form-field">
-            <label className="ne-form-label">Visibility</label>
-            <select 
-              name="visibility" 
-              value={form.visibility} 
-              onChange={handleChange} 
-              className="ne-form-select"
-            >
-              <option value="public">Public</option>
-              <option value="members">Members</option>
-              <option value="internal">Internal</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="ne-form-field">
-          <label className="ne-form-label">Tags</label>
-          <input 
-            className="ne-form-input" 
-            name="tags" 
-            value={form.tags} 
-            onChange={handleChange} 
-            placeholder="technology, announcement, conference"
-          />
-          <p className="ne-form-hint">Separate multiple tags with commas</p>
-        </div>
-
-        <div className="ne-form-field">
-          <label className="ne-form-label">External Link</label>
-          <input 
-            className="ne-form-input" 
-            name="external_link" 
-            value={form.external_link} 
-            onChange={handleChange} 
-            placeholder="https://example.com"
+        <div className="nexus-form-group nexus-form-group--full">
+          <label className="nexus-form-label">
+            Content <span className="nexus-required">*</span>
+          </label>
+          <textarea
+            name="content"
+            value={form.content}
+            onChange={handleChange}
+            className="nexus-form-textarea"
+            rows={6}
+            placeholder="Write detailed content here..."
           />
         </div>
+
+        {/* Conditional Fields */}
+        {form.type === "news" && (
+          <div className="nexus-form-group">
+            <label className="nexus-form-label">
+              Publication Date <span className="nexus-required">*</span>
+            </label>
+            <input
+              type="date"
+              name="date"
+              value={form.date}
+              onChange={handleChange}
+              className="nexus-form-input"
+              required
+            />
+          </div>
+        )}
+
+        {form.type === "event" && (
+          <>
+            <div className="nexus-form-group">
+              <label className="nexus-form-label">
+                Event Start <span className="nexus-required">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                name="event_start"
+                value={form.event_start}
+                onChange={handleChange}
+                className="nexus-form-input"
+                required
+              />
+            </div>
+
+            <div className="nexus-form-group">
+              <label className="nexus-form-label">
+                Location <span className="nexus-required">*</span>
+              </label>
+              <input
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                className="nexus-form-input"
+                placeholder="Venue or online location"
+                required
+              />
+            </div>
+          </>
+        )}
       </div>
 
-      <div className="ne-form-actions">
-        <button 
-          className="ne-form-btn ne-form-btn--primary" 
-          type="submit" 
+      <div className="nexus-form-actions">
+        <button
+          className="nexus-btn nexus-btn--primary"
+          type="submit"
           disabled={submitting}
         >
           {submitting ? (
             <>
-              <span className="ne-form-btn-spinner"></span>
+              <span className="nexus-btn-spinner"></span>
               Creating...
             </>
           ) : (
-            "Create Item"
+            `Create ${form.type === "news" ? "News" : "Event"}`
           )}
         </button>
         <button
           type="button"
-          className="ne-form-btn ne-form-btn--secondary"
+          className="nexus-btn nexus-btn--secondary"
           onClick={() =>
             setForm({
               title: "",
               type: "news",
               summary: "",
               content: "",
-              source: "",
-              publish_date: "",
+              date: "",
               event_start: "",
-              event_end: "",
               location: "",
-              status: "active",
-              tags: "",
-              external_link: "",
               visibility: "public",
             })
           }

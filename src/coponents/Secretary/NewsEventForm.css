@@ -1,202 +1,244 @@
-.ne-form-container {
+/* NewsEventForm.css */
+.nexus-form-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  background: #fff;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e5e9;
 }
 
-.ne-form-header {
+.nexus-form-header {
+  text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #f0f2f5;
 }
 
-.ne-form-title {
+.nexus-form-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1a202c;
   margin: 0 0 0.5rem 0;
+  line-height: 1.3;
 }
 
-.ne-form-subtitle {
-  color: #666;
-  font-size: 0.95rem;
+.nexus-form-subtitle {
+  font-size: 1rem;
+  color: #718096;
   margin: 0;
+  line-height: 1.5;
 }
 
-.ne-form-section {
-  margin-bottom: 2.5rem;
-}
-
-.ne-form-section-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 1.5rem 0;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid #f0f0f0;
-}
-
-.ne-form-grid {
+.nexus-form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.ne-form-field {
-  margin-bottom: 1.5rem;
+.nexus-form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.ne-form-label {
-  display: block;
-  font-weight: 500;
-  color: #374151;
+.nexus-form-group--full {
+  grid-column: 1 / -1;
+}
+
+.nexus-form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2d3748;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.ne-form-required {
-  color: #dc2626;
+.nexus-required {
+  color: #e53e3e;
+  font-size: 0.75rem;
 }
 
-.ne-form-input,
-.ne-form-select,
-.ne-form-textarea {
-  width: 100%;
+.nexus-form-input,
+.nexus-form-select,
+.nexus-form-textarea {
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  background: #fff;
+  font-size: 0.875rem;
+  transition: all 0.2s ease-in-out;
+  background: #ffffff;
 }
 
-.ne-form-input:focus,
-.ne-form-select:focus,
-.ne-form-textarea:focus {
+.nexus-form-input:focus,
+.nexus-form-select:focus,
+.nexus-form-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
-.ne-form-textarea {
+.nexus-form-input::placeholder,
+.nexus-form-textarea::placeholder {
+  color: #a0aec0;
+}
+
+.nexus-form-textarea {
   resize: vertical;
   min-height: 120px;
   font-family: inherit;
+  line-height: 1.5;
 }
 
-.ne-form-hint {
-  font-size: 0.8rem;
-  color: #6b7280;
-  margin: 0.5rem 0 0 0;
+.nexus-form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
-.ne-form-alert {
-  padding: 1rem 1.25rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+.nexus-form-alert {
   display: flex;
   align-items: center;
-}
-
-.ne-form-alert--success {
-  background: #f0f9ff;
-  border: 1px solid #0ea5e9;
-  color: #0369a1;
-}
-
-.ne-form-alert--error {
-  background: #fef2f2;
-  border: 1px solid #ef4444;
-  color: #dc2626;
-}
-
-.ne-form-alert-text {
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  font-size: 0.9rem;
 }
 
-.ne-form-actions {
+.nexus-alert--success {
+  background-color: #f0fff4;
+  border: 1px solid #9ae6b4;
+  color: #276749;
+}
+
+.nexus-alert--error {
+  background-color: #fed7d7;
+  border: 1px solid #feb2b2;
+  color: #c53030;
+}
+
+.nexus-alert-icon {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.nexus-form-actions {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
   padding-top: 1.5rem;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid #f0f2f5;
 }
 
-.ne-form-btn {
+.nexus-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: 600;
-  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  min-width: 120px;
 }
 
-.ne-form-btn:disabled {
+.nexus-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.ne-form-btn--primary {
-  background: #2563eb;
+.nexus-btn--primary {
+  background: #3182ce;
   color: white;
 }
 
-.ne-form-btn--primary:hover:not(:disabled) {
-  background: #1d4ed8;
+.nexus-btn--primary:hover:not(:disabled) {
+  background: #2c5aa0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+.nexus-btn--secondary {
+  background: #ffffff;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.nexus-btn--secondary:hover:not(:disabled) {
+  background: #f7fafc;
+  border-color: #cbd5e0;
   transform: translateY(-1px);
 }
 
-.ne-form-btn--secondary {
-  background: #f8fafc;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-}
-
-.ne-form-btn--secondary:hover:not(:disabled) {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-.ne-form-btn-spinner {
+.nexus-btn-spinner {
   width: 16px;
   height: 16px;
   border: 2px solid transparent;
   border-top: 2px solid currentColor;
   border-radius: 50%;
-  animation: ne-form-spin 1s linear infinite;
+  animation: nexus-spin 0.8s linear infinite;
 }
 
-@keyframes ne-form-spin {
+@keyframes nexus-spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .ne-form-container {
+  .nexus-form-container {
     padding: 1.5rem;
     margin: 1rem;
   }
-  
-  .ne-form-grid {
+
+  .nexus-form-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
-  .ne-form-actions {
+
+  .nexus-form-actions {
     flex-direction: column;
   }
-  
-  .ne-form-btn {
-    justify-content: center;
+
+  .nexus-btn {
+    min-width: auto;
+    width: 100%;
   }
+}
+
+@media (max-width: 480px) {
+  .nexus-form-container {
+    padding: 1rem;
+  }
+
+  .nexus-form-title {
+    font-size: 1.5rem;
+  }
+}
+.nexus-form-select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.nexus-form-select:focus {
+  border-color: #007bff;
+  outline: none;
 }
