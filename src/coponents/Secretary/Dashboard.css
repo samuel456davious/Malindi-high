@@ -558,3 +558,36 @@
     font-size: 2rem;
   }
 }
+
+
+.delete-announcement-btn {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  margin-left: auto;
+  align-self: center;
+}
+
+.delete-announcement-btn:hover {
+  background-color: #e63939;
+}
+
+.load-more-btn {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}

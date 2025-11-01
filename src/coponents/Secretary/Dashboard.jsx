@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../Authentication/AuthContext';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
@@ -7,16 +7,87 @@ export default function Dashboard() {
   const { role, logout } = useContext(AuthContext);
 
   // -----------------------
-  // News & Events Section (Hooks must come first!)
+  // News & Events Section
   // -----------------------
-  const [newsList, setNewsList] = useState([
-    { title: 'Midterm Exams Schedule Released', date: '2025-10-25', type: 'Event' },
-    { title: 'Parent-Teacher Meeting this Friday', date: '2025-10-27', type: 'News' },
-  ]);
+  const [newsList, setNewsList] = useState([]);
   const [newItem, setNewItem] = useState({ title: '', date: '', type: 'News' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [limit, setLimit] = useState(10);
 
-  // Restrict to secretary role (AFTER hooks are declared)
+  const fetchNewsAndEvents = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError('');
+
+      const [newsRes, eventsRes] = await Promise.all([
+        fetch(`https://malindihigh.pythonanywhere.com/get_news?limit=${limit}`),
+        fetch(`https://malindihigh.pythonanywhere.com/get_events?limit=${limit}`)
+      ]);
+
+      if (!newsRes.ok || !eventsRes.ok) {
+        throw new Error('Failed to fetch news or events');
+      }
+
+      const [newsData, eventsData] = await Promise.all([
+        newsRes.json(),
+        eventsRes.json()
+      ]);
+
+      const formattedNews = newsData.map(n => ({
+        id: n.id,
+        title: n.title,
+        date: n.date,
+        type: 'News'
+      }));
+
+      const formattedEvents = eventsData.map(e => ({
+        id: e.id,
+        title: e.name,
+        date: e.date,
+        type: 'Event'
+      }));
+
+      const merged = [...formattedNews, ...formattedEvents].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+
+      setNewsList(merged);
+    } catch (err) {
+      console.error('Error loading news/events:', err);
+      setError('Failed to load news and events.');
+    } finally {
+      setLoading(false);
+    }
+  }, [limit]);
+
+  useEffect(() => {
+    fetchNewsAndEvents();
+  }, [fetchNewsAndEvents]);
+
+  const handleAddNews = (e) => {
+    e.preventDefault();
+    if (!newItem.title || !newItem.date) {
+      setError('Please fill out all fields.');
+      return;
+    }
+    setNewsList([{ ...newItem, id: Date.now() }, ...newsList]);
+    setNewItem({ title: '', date: '', type: 'News' });
+    setError('');
+  };
+
+  const handleDeleteNews = (idToDelete) => {
+    const updatedList = newsList.filter(item => item.id !== idToDelete);
+    setNewsList(updatedList);
+  };
+
+  const handleLoadMore = () => {
+    setLimit(prev => prev + 10);
+  };
+
+  // -----------------------
+  // Restrict to secretary role
+  // -----------------------
   if (role !== 'secretary') {
     return (
       <div className="dashboard-unauthorized">
@@ -28,7 +99,7 @@ export default function Dashboard() {
   }
 
   // -----------------------
-  // Secretary Dashboard Data
+  // Dashboard Data
   // -----------------------
   const statsData = [
     { title: 'Pending Enrollments', value: '8', color: 'warning', link: '/pending_users' },
@@ -44,17 +115,6 @@ export default function Dashboard() {
     { title: 'Communication Center', description: 'Send announcements to students or teachers', icon: '📢', link: '/announcements', color: 'warning' },
     { title: 'Generate Reports', description: 'Attendance, grades, and registration reports', icon: '📊', link: '/reports', color: 'success' },
   ];
-
-  const handleAddNews = (e) => {
-    e.preventDefault();
-    if (!newItem.title || !newItem.date) {
-      setError('Please fill out all fields.');
-      return;
-    }
-    setNewsList([{ ...newItem }, ...newsList]);
-    setNewItem({ title: '', date: '', type: 'News' });
-    setError('');
-  };
 
   // -----------------------
   // Render
@@ -116,39 +176,11 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Administrative Tools */}
-      <div className="dashboard-section">
-        <h2 className="dashboard-section-title">Administrative Tools</h2>
-        <div className="admin-tools-grid">
-          <Link to="/pending_users" className="admin-tool-card admin-tool-card--warning">
-            <span className="admin-tool-icon">📝</span>
-            <div className="admin-tool-content">
-              <h3 className="admin-tool-title">Review Pending Enrollments</h3>
-              <p className="admin-tool-description">Approve or reject new student applications</p>
-            </div>
-          </Link>
-          <Link to="/teacher_requests" className="admin-tool-card admin-tool-card--info">
-            <span className="admin-tool-icon">🧾</span>
-            <div className="admin-tool-content">
-              <h3 className="admin-tool-title">Review Teacher Requests</h3>
-              <p className="admin-tool-description">Manage teacher schedules and resource requests</p>
-            </div>
-          </Link>
-          <Link to="/reports" className="admin-tool-card admin-tool-card--secondary">
-            <span className="admin-tool-icon">📄</span>
-            <div className="admin-tool-content">
-              <h3 className="admin-tool-title">Generate Reports</h3>
-              <p className="admin-tool-description">Create attendance and performance summaries</p>
-            </div>
-          </Link>
-        </div>
-      </div>
-
       {/* News & Events Management */}
       <div className="dashboard-section">
         <h2 className="dashboard-section-title">Latest News & Events</h2>
 
-        <form className="news-management-form" onSubmit={handleAddNews}>
+        {/* <form className="news-management-form" onSubmit={handleAddNews}>
           <input
             type="text"
             className="news-form-input"
@@ -171,52 +203,47 @@ export default function Dashboard() {
             <option value="Event">Event</option>
           </select>
           <button type="submit" className="news-form-submit">Add Announcement</button>
-        </form>
+        </form> */}
 
         {error && <p className="form-error-message">{error}</p>}
 
         <div className="announcements-list">
-          {newsList.map((item, index) => (
-            <div key={index} className="announcement-item">
-              <div className="announcement-type-indicator">
-                {item.type === 'News' ? '📰' : '🎉'}
+          {loading ? (
+            <p>Loading latest announcements...</p>
+          ) : newsList.length === 0 ? (
+            <p>No announcements found.</p>
+          ) : (
+            newsList.map((item) => (
+              <div key={item.id} className="announcement-item">
+                <div className="announcement-type-indicator">
+                  {item.type === 'News' ? '📰' : '🎉'}
+                </div>
+                <div className="announcement-content">
+                  <h3 className="announcement-title">{item.title}</h3>
+                  <p className="announcement-date">
+                    {new Date(item.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
+                </div>
+                <button
+                  className="delete-announcement-btn"
+                  onClick={() => handleDeleteNews(item.id)}
+                >
+                  🗑️ Delete
+                </button>
               </div>
-              <div className="announcement-content">
-                <h3 className="announcement-title">{item.title}</h3>
-                <p className="announcement-date">{new Date(item.date).toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
-      </div>
 
-      {/* Recent Activity */}
-      <div className="dashboard-section">
-        <h2 className="dashboard-section-title">Recent Activity</h2>
-        <div className="activity-feed">
-          <div className="activity-feed-item">
-            <div className="activity-icon-container">
-              <span className="activity-icon">🔔</span>
-            </div>
-            <div className="activity-content">
-              <p className="activity-text">3 new student enrollment requests received.</p>
-              <span className="activity-timestamp">Just now</span>
-            </div>
-          </div>
-          <div className="activity-feed-item">
-            <div className="activity-icon-container">
-              <span className="activity-icon">💬</span>
-            </div>
-            <div className="activity-content">
-              <p className="activity-text">New message from the Principal's Office.</p>
-              <span className="activity-timestamp">2 hours ago</span>
-            </div>
-          </div>
-        </div>
+        {!loading && newsList.length >= limit && (
+          <button className="load-more-btn" onClick={handleLoadMore}>
+            Load More
+          </button>
+        )}
       </div>
     </div>
   );
