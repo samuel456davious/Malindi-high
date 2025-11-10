@@ -40,7 +40,6 @@ const Academics = () => {
             university and beyond, with qualified teachers in every department.
           </p>
         </div>
-
         <div className="academics-grid">
           {departments.map((dept, index) => (
             <div key={index} className="department-card">

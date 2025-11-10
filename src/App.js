@@ -23,14 +23,25 @@ import ResetPassword from "./coponents/Authentication/ResetPassword";
 import RequestReset from "./coponents/Authentication/RequestReset";
 import TeacherDashboard from "./coponents/Teachers/TeachersDashboard";
 import NewsEventForm from "./coponents/Secretary/NewsEventForm";
-
+import StudentPortal from "./coponents/Student/StudentPortal";
+import Football from "./coponents/Activities/Football";
+import Basketball from "./coponents/Activities/Basketball";
+import Rugby from "./coponents/Activities/Rugby";
+import Hockey from "./coponents/Activities/Hockey";
+// import StudentLogin from "./coponents/Student/StudentLogin";
 const App = () => {
   return (
     <AuthProvider>
       <Router>
         <Navigation />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/activities/football" element={<Football/>} />
+          <Route path="/activities/hockey" element={<Hockey/>} />
+          <Route path="/activities/rugby" element={<Rugby/>} />
+          <Route path="/activities/basketball" element={<Basketball/>} />
+          <Route path="/student-portal" element={<StudentPortal/>} />
+          <Route path="/t" element={<TeacherDashboard />} />
           <Route path="/contacts" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<About />} />

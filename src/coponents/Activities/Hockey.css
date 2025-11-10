@@ -1,0 +1,516 @@
+/* Hockey.css */
+.hockey-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.hockey-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  animation: hockey-float 8s ease-in-out infinite;
+}
+
+.hockey-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    );
+  pointer-events: none;
+}
+
+@keyframes hockey-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-15px) scale(1.02); }
+}
+
+.hockey-main {
+  position: relative;
+  z-index: 1;
+}
+
+.hockey-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header Section */
+.hockey-header {
+  text-align: center;
+  padding: 5rem 0 3rem;
+  position: relative;
+}
+
+.hockey-icon {
+  display: inline-flex;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border-radius: 50%;
+  margin-bottom: 2rem;
+  animation: hockey-bounce 2s infinite, hockey-rotate 4s linear infinite;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+  position: relative;
+}
+
+.hockey-icon::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: conic-gradient(from 0deg, #ffd700, #00ffff, #ffd700);
+  border-radius: 50%;
+  z-index: -1;
+  animation: hockey-spin 3s linear infinite;
+}
+
+@keyframes hockey-bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-7px); }
+}
+
+@keyframes hockey-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hockey-spin {
+  0% { transform: rotate(0deg); opacity: 0.7; }
+  100% { transform: rotate(360deg); opacity: 1; }
+}
+
+.hockey-icon-svg {
+  width: 3rem;
+  height: 3rem;
+  color: #0f2027;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.hockey-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffd700 0%, #00ffff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: inline-block;
+}
+
+.hockey-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffd700, #00ffff, transparent);
+  border-radius: 2px;
+}
+
+.hockey-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Stats Grid with Hockey Stick Design */
+.hockey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+  position: relative;
+}
+
+.hockey-grid::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, #00ffff, transparent);
+  opacity: 0.3;
+}
+
+.hockey-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.hockey-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.hockey-card:hover::before {
+  left: 100%;
+}
+
+.hockey-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hockey-card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: #ffd700;
+  margin: 0 auto 1.5rem;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 0.8rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.hockey-card:hover .hockey-card-icon {
+  transform: scale(1.2) rotate(10deg);
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.1);
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.hockey-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hockey-card-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Sections with Hockey Field Pattern */
+.hockey-section {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 25px;
+  padding: 3.5rem;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hockey-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 49%, rgba(255, 215, 0, 0.1) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(255, 215, 0, 0.1) 50%, transparent 51%);
+  background-size: 50px 50px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hockey-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(135deg, #ffd700, #00ffff);
+  border-radius: 3px 0 0 3px;
+}
+
+.hockey-section-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.hockey-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, #00ffff);
+  border-radius: 2px;
+  animation: hockey-title-underline 2s ease-in-out infinite alternate;
+}
+
+@keyframes hockey-title-underline {
+  0% { width: 80px; }
+  100% { width: 120px; }
+}
+
+.hockey-section p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  font-size: 1.15rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Schedule with Hockey Stick Timeline */
+.hockey-schedule {
+  display: grid;
+  gap: 1.8rem;
+  position: relative;
+}
+
+.hockey-schedule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 75px;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(180deg, #ffd700, #00ffff, #ffd700);
+  border-radius: 2px;
+}
+
+.hockey-schedule-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 2.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  border-left: 4px solid #ffd700;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.hockey-schedule-item::before {
+  content: '';
+  position: absolute;
+  left: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #00ffff;
+  border-radius: 50%;
+  border: 3px solid #0f2027;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  z-index: 2;
+}
+
+.hockey-schedule-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(15px) scale(1.02);
+  border-left-color: #00ffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.hockey-schedule-day {
+  font-weight: 800;
+  color: #ffd700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hockey-schedule-title {
+  color: #00ffff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 5px rgba(0, 255, 255, 0.2);
+}
+
+.hockey-schedule-time {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Join Section with Hockey Goal Design */
+.hockey-join {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 255, 255, 0.1));
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 25px;
+  padding: 4rem 3rem;
+  text-align: center;
+  margin: 5rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hockey-join::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.1) 50%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%);
+  background-size: 60px 60px;
+  animation: hockey-goal-shimmer 4s linear infinite;
+}
+
+@keyframes hockey-goal-shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+.hockey-join-text {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.hockey-contact {
+  background: rgba(15, 32, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.hockey-contact p {
+  color: white;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.hockey-contact strong {
+  color: #00ffff;
+  text-shadow: 0 2px 5px rgba(0, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hockey-container {
+    padding: 1rem;
+  }
+  
+  .hockey-title {
+    font-size: 2.8rem;
+  }
+  
+  .hockey-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .hockey-grid::before {
+    display: none;
+  }
+  
+  .hockey-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .hockey-schedule::before {
+    left: 20px;
+  }
+  
+  .hockey-schedule-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-left: 3rem;
+  }
+  
+  .hockey-schedule-item::before {
+    left: 15px;
+  }
+  
+  .hockey-join {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+/* Custom Hockey-themed Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 32, 39, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ffd700, #00ffff);
+  border-radius: 5px;
+  border: 2px solid #0f2027;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00ffff, #ffd700);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
