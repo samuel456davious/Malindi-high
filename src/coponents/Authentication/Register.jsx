@@ -395,6 +395,7 @@ export default function Register({ user, onProfileUpdate, isEditMode = false }) 
           image={originalImage}
           onSave={handleImageSave}
           onClose={() => setShowImageEditor(false)}
+          avatarMode={true} // Set to true for avatar mode, false for regular profile photos
         />
       )}
     </div>
