@@ -28,6 +28,7 @@ import Football from "./coponents/Activities/Football";
 import Basketball from "./coponents/Activities/Basketball";
 import Rugby from "./coponents/Activities/Rugby";
 import Hockey from "./coponents/Activities/Hockey";
+import Clubs from "./coponents/Activities/Clubs";
 // import StudentLogin from "./coponents/Student/StudentLogin";
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/activities/football" element={<Football/>} />
+          <Route path="/activities/clubs" element={<Clubs/>} />
           <Route path="/activities/hockey" element={<Hockey/>} />
           <Route path="/activities/rugby" element={<Rugby/>} />
           <Route path="/activities/basketball" element={<Basketball/>} />
