@@ -1,17 +1,41 @@
-import React, { useState } from 'react';
+// Register.js
+import React, { useState, useEffect } from 'react';
 import API from '../Authentication/api';
+import ImageEditor from './ImageEditor'; // Import the separated component
 import './Register.css';
 
-export default function Register() {
+// Main Register Component
+export default function Register({ user, onProfileUpdate, isEditMode = false }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    profilePhoto: null
+    profilePhoto: null,
+    bio: '',
+    phone: ''
   });
   const [msg, setMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [currentProfilePhoto, setCurrentProfilePhoto] = useState('');
+  const [showImageEditor, setShowImageEditor] = useState(false);
+  const [originalImage, setOriginalImage] = useState('');
+
+  // Initialize form with user data when in edit mode
+  useEffect(() => {
+    if (isEditMode && user) {
+      setFormData({
+        username: user.username || '',
+        email: user.email || '',
+        password: '', // Don't pre-fill password for security
+        profilePhoto: null,
+        bio: user.bio || '',
+        phone: user.phone || ''
+      });
+      setCurrentProfilePhoto(user.profilePhoto || '');
+      setPreviewUrl(user.profilePhoto || '');
+    }
+  }, [isEditMode, user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,18 +60,33 @@ export default function Register() {
         return;
       }
 
-      setFormData(prev => ({
-        ...prev,
-        profilePhoto: file
-      }));
-
-      // Create preview
+      // Create preview and show editor
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewUrl(reader.result);
+        setOriginalImage(reader.result);
+        setShowImageEditor(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleImageSave = (editedBlob) => {
+    // Convert blob to file
+    const file = new File([editedBlob], 'profile-photo.jpg', { type: 'image/jpeg' });
+    
+    setFormData(prev => ({
+      ...prev,
+      profilePhoto: file
+    }));
+
+    // Create preview from blob
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(editedBlob);
+
+    setShowImageEditor(false);
   };
 
   const removeProfilePhoto = () => {
@@ -55,7 +94,7 @@ export default function Register() {
       ...prev,
       profilePhoto: null
     }));
-    setPreviewUrl('');
+    setPreviewUrl(currentProfilePhoto || '');
   };
 
   const handleSubmit = async (e) => {
@@ -67,47 +106,103 @@ export default function Register() {
       const submitData = new FormData();
       submitData.append('username', formData.username);
       submitData.append('email', formData.email);
-      submitData.append('password', formData.password);
+      
+      // Only include password if it's provided (for updates) or in registration
+      if (formData.password) {
+        submitData.append('password', formData.password);
+      }
+      
       if (formData.profilePhoto) {
         submitData.append('profilePhoto', formData.profilePhoto);
       }
-
-      const res = await API.post('/register', submitData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      setMsg(res.data.msg || 'Registration successful! You can now login.');
       
-      // Reset form on success
-      if (res.status === 201) {
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-          profilePhoto: null
+      if (formData.bio) {
+        submitData.append('bio', formData.bio);
+      }
+      
+      if (formData.phone) {
+        submitData.append('phone', formData.phone);
+      }
+
+      let res;
+      if (isEditMode) {
+        // Update profile
+        res = await API.put('/profile', submitData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
-        setPreviewUrl('');
+        setMsg(res.data.msg || 'Profile updated successfully!');
+        
+        // Notify parent component about profile update
+        if (onProfileUpdate) {
+          onProfileUpdate(res.data.user);
+        }
+      } else {
+        // Register new user
+        res = await API.post('/register', submitData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        setMsg(res.data.msg || 'Registration successful! You can now login.');
+        
+        // Reset form on success
+        if (res.status === 201) {
+          setFormData({
+            username: '',
+            email: '',
+            password: '',
+            profilePhoto: null,
+            bio: '',
+            phone: ''
+          });
+          setPreviewUrl('');
+        }
       }
     } catch (err) {
-      setMsg(err.response?.data?.msg || 'Registration failed. Please try again.');
+      const errorMsg = err.response?.data?.msg || 
+        (isEditMode ? 'Profile update failed. Please try again.' : 'Registration failed. Please try again.');
+      setMsg(errorMsg);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCancelEdit = () => {
+    // Reset to original user data
+    if (user) {
+      setFormData({
+        username: user.username || '',
+        email: user.email || '',
+        password: '',
+        profilePhoto: null,
+        bio: user.bio || '',
+        phone: user.phone || ''
+      });
+      setPreviewUrl(user.profilePhoto || '');
+    }
+    setMsg('');
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2 className="auth-title">Create Account</h2>
-          <p className="auth-subtitle">Join us today and get started</p>
+          <h2 className="auth-title">
+            {isEditMode ? 'Edit Profile' : 'Create Account'}
+          </h2>
+          <p className="auth-subtitle">
+            {isEditMode ? 'Update your profile information' : 'Join us today and get started'}
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
           {/* Profile Photo Upload */}
           <div className="form-group">
-            <label className="form-label">Profile Photo (Optional)</label>
+            <label className="form-label">
+              Profile Photo {!isEditMode && '(Optional)'}
+            </label>
             <div className="profile-photo-upload">
               <div className="profile-photo-preview">
                 {previewUrl ? (
@@ -142,13 +237,22 @@ export default function Register() {
                   disabled={isLoading}
                 />
                 <span className="file-upload-button">
-                  Choose Photo
+                  {previewUrl ? 'Change Photo' : 'Choose Photo'}
                 </span>
               </label>
+              {previewUrl && (
+                <button
+                  type="button"
+                  className="edit-photo-button"
+                  onClick={() => setShowImageEditor(true)}
+                >
+                  Edit Photo
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Username Field */}
+          {/* Rest of the form fields remain the same */}
           <div className="form-group">
             <label htmlFor="username" className="form-label">
               Username *
@@ -166,7 +270,6 @@ export default function Register() {
             />
           </div>
 
-          {/* Email Field */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">
               Email Address *
@@ -184,20 +287,51 @@ export default function Register() {
             />
           </div>
 
-          {/* Password Field */}
+          <div className="form-group">
+            <label htmlFor="bio" className="form-label">
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              name="bio"
+              className="form-input form-textarea"
+              placeholder="Tell us a little about yourself"
+              value={formData.bio}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              rows="3"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phone" className="form-label">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              className="form-input"
+              placeholder="Enter your phone number"
+              value={formData.phone}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+          </div>
+
           <div className="form-group">
             <label htmlFor="password" className="form-label">
-              Password *
+              Password {isEditMode ? '(Leave blank to keep current)' : '*'}
             </label>
             <input
               id="password"
               name="password"
               type="password"
               className="form-input"
-              placeholder="Create a strong password"
+              placeholder={isEditMode ? "Enter new password (optional)" : "Create a strong password"}
               value={formData.password}
               onChange={handleInputChange}
-              required
+              required={!isEditMode}
               disabled={isLoading}
               minLength="6"
             />
@@ -206,20 +340,32 @@ export default function Register() {
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            className={`auth-button ${isLoading ? 'auth-button--loading' : ''}`}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <span className="auth-button-spinner"></span>
-                Creating Account...
-              </>
-            ) : (
-              'Create Account'
+          <div className="form-actions">
+            {isEditMode && (
+              <button 
+                type="button"
+                className="auth-button auth-button--secondary"
+                onClick={handleCancelEdit}
+                disabled={isLoading}
+              >
+                Cancel
+              </button>
             )}
-          </button>
+            <button 
+              type="submit" 
+              className={`auth-button ${isLoading ? 'auth-button--loading' : ''}`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span className="auth-button-spinner"></span>
+                  {isEditMode ? 'Updating Profile...' : 'Creating Account...'}
+                </>
+              ) : (
+                isEditMode ? 'Update Profile' : 'Create Account'
+              )}
+            </button>
+          </div>
         </form>
 
         {msg && (
@@ -231,15 +377,26 @@ export default function Register() {
           </div>
         )}
 
-        <div className="auth-footer">
-          <p className="auth-footer-text">
-            Already have an account?{' '}
-            <a href="/login" className="auth-footer-link">
-              Sign in here
-            </a>
-          </p>
-        </div>
+        {!isEditMode && (
+          <div className="auth-footer">
+            <p className="auth-footer-text">
+              Already have an account?{' '}
+              <a href="/login" className="auth-footer-link">
+                Sign in here
+              </a>
+            </p>
+          </div>
+        )}
       </div>
+
+      {/* Image Editor Modal - Now using the separate component */}
+      {showImageEditor && (
+        <ImageEditor
+          image={originalImage}
+          onSave={handleImageSave}
+          onClose={() => setShowImageEditor(false)}
+        />
+      )}
     </div>
   );
 }
