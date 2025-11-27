@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 export default function Login() {
-  const [identifier, setIdentifier] = useState(''); // ✅ updated
+  const [identifier, setIdentifier] = useState(''); 
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,12 @@ export default function Login() {
       // ✅ send "identifier" instead of "username"
       const res = await API.post('/login', { identifier, password });
       login(res.data.access_token, res.data.role);
-      navigate('/dashboard');
+      // Redirect based on role
+      if (res.data.role === 'secretary') {
+        navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       setMsg(err.response?.data?.msg || 'Login failed. Please check your credentials.');
     } finally {
