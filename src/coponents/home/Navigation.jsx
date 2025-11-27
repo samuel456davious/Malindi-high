@@ -97,7 +97,7 @@ const Navigation = () => {
                   <img
                     src={
                       isAuthenticated
-                        ? profile?.profilePhoto || "/default-avatar.png"
+                        ? profile?.profile_photo|| "/default-avatar.png"
                         : "/api/placeholder/40/40?text=GUEST"
                     }
                     alt="Profile"
@@ -111,7 +111,7 @@ const Navigation = () => {
                       <>
                         <div className="mhs-dropdown-header">
                           <img
-                            src={profile?.profilePhoto || "/default-avatar.png"}
+                            src={profile?.profile_photo || "/default-avatar.png"}
                             alt="Profile"
                             className="mhs-dropdown-profile-image"
                           />
@@ -123,30 +123,32 @@ const Navigation = () => {
 
                         <div className="mhs-dropdown-divider"></div>
 
-                        {profileMenuItems.map((item) => {
-                          const IconComponent = item.icon;
-                          return (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className="mhs-dropdown-item"
-                              onClick={handleLinkClick}
-                            >
-                              <IconComponent className="mhs-dropdown-icon" size={18} />
-                              <span>{item.name}</span>
-                            </a>
-                          );
-                        })}
+                        <div className="mhs-dropdown-items">
+                          {profileMenuItems.map((item) => {
+                            const IconComponent = item.icon;
+                            return (
+                              <a
+                                key={item.name}
+                                href={item.href}
+                                className="mhs-dropdown-item"
+                                onClick={handleLinkClick}
+                              >
+                                <IconComponent className="mhs-dropdown-icon" size={18} />
+                                <span>{item.name}</span>
+                              </a>
+                            );
+                          })}
 
-                        <div className="mhs-dropdown-divider"></div>
+                          <div className="mhs-dropdown-divider"></div>
 
-                        <button
-                          className="mhs-dropdown-item mhs-dropdown-item--logout"
-                          onClick={() => handleAuthAction("logout")}
-                        >
-                          <LogOut className="mhs-dropdown-icon" size={18} />
-                          <span>Logout</span>
-                        </button>
+                          <button
+                            className="mhs-dropdown-item mhs-dropdown-item--logout"
+                            onClick={() => handleAuthAction("logout")}
+                          >
+                            <LogOut className="mhs-dropdown-icon" size={18} />
+                            <span>Logout</span>
+                          </button>
+                        </div>
                       </>
                     ) : (
                       <>
@@ -159,19 +161,21 @@ const Navigation = () => {
 
                         <div className="mhs-dropdown-divider"></div>
 
-                        {authMenuItems.map((item) => {
-                          const IconComponent = item.icon;
-                          return (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className="mhs-dropdown-item"
-                            >
-                              <IconComponent className="mhs-dropdown-icon" size={18} />
-                              <span>{item.name}</span>
-                            </a>
-                          );
-                        })}
+                        <div className="mhs-dropdown-items">
+                          {authMenuItems.map((item) => {
+                            const IconComponent = item.icon;
+                            return (
+                              <a
+                                key={item.name}
+                                href={item.href}
+                                className="mhs-dropdown-item"
+                              >
+                                <IconComponent className="mhs-dropdown-icon" size={18} />
+                                <span>{item.name}</span>
+                              </a>
+                            );
+                          })}
+                        </div>
                       </>
                     )}
                   </div>
@@ -201,23 +205,24 @@ const Navigation = () => {
 
             {/* Profile */}
             <div className="mhs-sidebar-profile">
-              <img
-                src={
-                  isAuthenticated
-                    ? profile?.profilePhoto || "/default-avatar.png"
-                    : "/api/placeholder/60/60?text=GUEST"
-                }
-                className="mhs-profile-image-large"
-                alt="Profile"
-              />
-
-              <div className="mhs-profile-info">
-                <h3 className="mhs-profile-name">
-                  {isAuthenticated ? profile?.username : "Welcome Guest"}
-                </h3>
-                <p className="mhs-profile-email">
-                  {isAuthenticated ? profile?.email : "Please login to continue"}
-                </p>
+              <div className="mhs-profile-header">
+                <img
+                  src={
+                    isAuthenticated
+                      ? profile?.profile_photo || "/default-avatar.png"
+                      : "/api/placeholder/60/60?text=GUEST"
+                  }
+                  className="mhs-profile-image-large"
+                  alt="Profile"
+                />
+                <div className="mhs-profile-info">
+                  <h3 className="mhs-profile-name">
+                    {isAuthenticated ? profile?.username : "Welcome Guest"}
+                  </h3>
+                  <p className="mhs-profile-email">
+                    {isAuthenticated ? profile?.email : "Please login to continue"}
+                  </p>
+                </div>
               </div>
             </div>
 

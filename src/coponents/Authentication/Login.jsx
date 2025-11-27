@@ -12,27 +12,36 @@ export default function Login() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setMsg('');
+ const handleLogin = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setMsg('');
 
-    try {
-      // ✅ send "identifier" instead of "username"
-      const res = await API.post('/login', { identifier, password });
-      login(res.data.access_token, res.data.role);
-      // Redirect based on role
-      if (res.data.role === 'secretary') {
-        navigate('/dashboard');
-      } else {
-        navigate('/');
-      }
-    } catch (err) {
-      setMsg(err.response?.data?.msg || 'Login failed. Please check your credentials.');
-    } finally {
-      setIsLoading(false);
+  try {
+    const res = await API.post('/login', { identifier, password });
+
+    // Pass all required user data to AuthContext.login()
+    login(res.data.access_token, {
+      role: res.data.role,
+      username: res.data.username,
+      email: res.data.email,
+      profile_photo: res.data.profile_photo
+    });
+
+    // Redirect based on role
+    if (res.data.role === 'secretary') {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
     }
-  };
+
+  } catch (err) {
+    setMsg(err.response?.data?.msg || 'Login failed. Please check your credentials.');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="auth-container">
