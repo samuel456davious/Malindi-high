@@ -29,6 +29,7 @@ import Basketball from "./coponents/Activities/Basketball";
 import Rugby from "./coponents/Activities/Rugby";
 import Hockey from "./coponents/Activities/Hockey";
 import Clubs from "./coponents/Activities/Clubs";
+import Profile from "./coponents/Authentication/Profile";
 // import StudentLogin from "./coponents/Student/StudentLogin";
 const App = () => {
   return (
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>
           <Route path="/announcements" element={<ProtectedRoute> <NewsEventForm/>  </ProtectedRoute> }/>
           <Route path="/teacher-dashboard" element={<ProtectedRoute> <TeacherDashboard/>  </ProtectedRoute> }/>
+          <Route path="/profile" element={<ProtectedRoute> <Profile/>  </ProtectedRoute> }/>
           <Route path="/dashboard" element={<ProtectedRoute> <Dashboard />  </ProtectedRoute> }/>
 
           {/* Optional: handle 404s */}
