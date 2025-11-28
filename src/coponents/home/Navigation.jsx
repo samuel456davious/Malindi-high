@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { AuthContext } from "../Authentication/AuthContext";
 import "./Navigation.css";
+import API from "../Authentication/api";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,8 +14,38 @@ const Navigation = () => {
   const {
     isAuthenticated,
     profile,
-    logout
+    logout,
+    role
   } = useContext(AuthContext);
+
+  // ---- Build Full Image URL ----
+  const getProfilePhotoUrl = (filename) => {
+    const defaultUrl = `${API.defaults.baseURL}static/uploads/profile_photos/default-avatar.png`;
+
+    if (!filename) return defaultUrl;
+
+    if (filename.startsWith("http://") || filename.startsWith("https://")) {
+      return filename;
+    }
+
+    return `${API.defaults.baseURL}static/uploads/profile_photos/${filename}`;
+  };
+
+  // ---- Determine Dashboard URL Based on Role ----
+  const getDashboardUrl = () => {
+    if (!isAuthenticated) return "/login";
+
+    switch (role) {
+      case "admin":
+        return "/admin-dashboard";
+      case "teacher":
+        return "/teacher-dashboard";
+      case "student":
+        return "/student-dashboard";
+      default:
+        return "/dashboard";
+    }
+  };
 
   const navigationLinks = [
     { name: "Home", href: "/", icon: "🏠" },
@@ -90,15 +121,12 @@ const Navigation = () => {
 
               {/* Profile Dropdown */}
               <div className="mhs-profile-dropdown" ref={profileDropdownRef}>
-                <button
-                  className="mhs-profile-trigger"
-                  onClick={handleProfileClick}
-                >
+                <button className="mhs-profile-trigger" onClick={handleProfileClick}>
                   <img
                     src={
                       isAuthenticated
-                        ? profile?.profile_photo|| "/default-avatar.png"
-                        : "/api/placeholder/40/40?text=GUEST"
+                        ? getProfilePhotoUrl(profile?.profile_photo)
+                        : `${API.defaults.baseURL}static/uploads/profile_photos/default-avatar.png`
                     }
                     alt="Profile"
                     className="mhs-profile-image"
@@ -111,7 +139,7 @@ const Navigation = () => {
                       <>
                         <div className="mhs-dropdown-header">
                           <img
-                            src={profile?.profile_photo || "/default-avatar.png"}
+                            src={getProfilePhotoUrl(profile?.profile_photo)}
                             alt="Profile"
                             className="mhs-dropdown-profile-image"
                           />
@@ -165,11 +193,7 @@ const Navigation = () => {
                           {authMenuItems.map((item) => {
                             const IconComponent = item.icon;
                             return (
-                              <a
-                                key={item.name}
-                                href={item.href}
-                                className="mhs-dropdown-item"
-                              >
+                              <a key={item.name} href={item.href} className="mhs-dropdown-item">
                                 <IconComponent className="mhs-dropdown-icon" size={18} />
                                 <span>{item.name}</span>
                               </a>
@@ -182,118 +206,17 @@ const Navigation = () => {
                 )}
               </div>
 
-              <a
-                className="mhs-login-btn mhs-btn-primary"
-                href={isAuthenticated ? "/dashboard" : "/login"}
-              >
+              {/* Dashboard Button with Role Routing */}
+              <a className="mhs-login-btn mhs-btn-primary" href={getDashboardUrl()}>
                 {isAuthenticated ? "Dashboard" : "Login"}
               </a>
+
             </div>
           </div>
 
           <button className="mhs-menu-toggle" onClick={handleMenuToggle}>
             {isMenuOpen ? <X className="mhs-menu-icon" /> : <Menu className="mhs-menu-icon" />}
           </button>
-        </div>
-
-        {/* MOBILE NAV */}
-        <div
-          className={`mhs-mobile-sidebar ${isMenuOpen ? "mhs-mobile-sidebar--open" : ""}`}
-          onClick={(e) => e.target === e.currentTarget && setIsMenuOpen(false)}
-        >
-          <div className="mhs-sidebar-content">
-
-            {/* Profile */}
-            <div className="mhs-sidebar-profile">
-              <div className="mhs-profile-header">
-                <img
-                  src={
-                    isAuthenticated
-                      ? profile?.profile_photo || "/default-avatar.png"
-                      : "/api/placeholder/60/60?text=GUEST"
-                  }
-                  className="mhs-profile-image-large"
-                  alt="Profile"
-                />
-                <div className="mhs-profile-info">
-                  <h3 className="mhs-profile-name">
-                    {isAuthenticated ? profile?.username : "Welcome Guest"}
-                  </h3>
-                  <p className="mhs-profile-email">
-                    {isAuthenticated ? profile?.email : "Please login to continue"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation Links */}
-            <ul className="mhs-sidebar-nav-list">
-              {navigationLinks.map((link) => (
-                <li key={link.name} className="mhs-sidebar-nav-item">
-                  <a
-                    href={link.href}
-                    className="mhs-sidebar-nav-link"
-                    onClick={handleLinkClick}
-                  >
-                    <span className="mhs-nav-icon">{link.icon}</span>
-                    <span className="mhs-nav-text">{link.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mhs-sidebar-footer">
-              <ul className="mhs-sidebar-nav-list">
-                {isAuthenticated ? (
-                  <>
-                    {profileMenuItems.map((item) => {
-                      const IconComponent = item.icon;
-                      return (
-                        <li key={item.name} className="mhs-sidebar-nav-item">
-                          <a href={item.href} className="mhs-sidebar-nav-link">
-                            <IconComponent className="mhs-nav-icon" size={20} />
-                            <span className="mhs-nav-text">{item.name}</span>
-                          </a>
-                        </li>
-                      );
-                    })}
-
-                    <li className="mhs-sidebar-nav-item">
-                      <button
-                        className="mhs-sidebar-nav-link mhs-sidebar-nav-button"
-                        onClick={() => handleAuthAction("logout")}
-                      >
-                        <LogOut className="mhs-nav-icon" size={20} />
-                        <span className="mhs-nav-text">Logout</span>
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  authMenuItems.map((item) => {
-                    const IconComponent = item.icon;
-                    return (
-                      <li key={item.name} className="mhs-sidebar-nav-item">
-                        <a href={item.href} className="mhs-sidebar-nav-link">
-                          <IconComponent className="mhs-nav-icon" size={20} />
-                          <span className="mhs-nav-text">{item.name}</span>
-                        </a>
-                      </li>
-                    );
-                  })
-                )}
-              </ul>
-
-              <div className="mhs-sidebar-actions">
-                <a
-                  className="mhs-login-btn mhs-btn-primary mhs-btn-full"
-                  href={isAuthenticated ? "/dashboard" : "/login"}
-                >
-                  {isAuthenticated ? "Dashboard" : "Login"}
-                </a>
-              </div>
-
-            </div>
-          </div>
         </div>
       </nav>
     </header>

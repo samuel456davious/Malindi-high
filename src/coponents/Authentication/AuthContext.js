@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     let photo = profileData.profile_photo;
 
     if (!photo) {
-      profileData.profile_photo = "/default-avatar.png";
+      profileData.profile_photo = "default-avatar.png";
       return profileData;
     }
 
@@ -29,8 +29,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     // Convert filename → correct full URL
-    profileData.profile_photo =
-      `https://malindihigh.pythonanywhere.com/static/uploads/profile_photos/${photo}`;
+    profileData.profile_photo = `${photo}`;
 
     return profileData;
   };

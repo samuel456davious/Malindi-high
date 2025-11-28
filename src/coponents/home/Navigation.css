@@ -137,8 +137,8 @@
 }
 
 .mhs-profile-image {
-  width: 50px; /* Increased from 40px */
-  height: 50px; /* Increased from 40px */
+  width: 50px; 
+  height: 50px; 
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--mhs-gray-border);
@@ -156,7 +156,9 @@
   display: inline-block;
   text-align: center;
 }
-
+.dash{
+  width: 200px;
+}
 .mhs-btn-primary {
   background: var(--mhs-primary-color);
   color: var(--mhs-white);
@@ -254,8 +256,8 @@
 }
 
 .mhs-profile-image-large {
-  width: 80px; /* Increased from 60px */
-  height: 80px; /* Increased from 60px */
+  width: 80px; 
+  height: 80px; 
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(255, 255, 255, 0.3);
@@ -267,19 +269,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 80px; /* Increased to match image height */
+  min-height: 80px; 
 }
 
 .mhs-profile-name {
-  font-size: 1.2rem; /* Slightly increased */
+  font-size: 1.2rem; 
   font-weight: 600;
-  margin: 0 0 0.5rem 0; /* Increased bottom margin */
+  margin: 0 0 0.5rem 0; 
   color: var(--mhs-white);
   line-height: 1.2;
 }
 
 .mhs-profile-email {
-  font-size: 0.85rem; /* Slightly increased */
+  font-size: 0.85rem; 
   opacity: 0.9;
   margin: 0;
   color: var(--mhs-white);

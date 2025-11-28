@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/activities/rugby" element={<Rugby/>} />
           <Route path="/activities/basketball" element={<Basketball/>} />
           <Route path="/student-portal" element={<StudentPortal/>} />
-          <Route path="/t" element={<TeacherDashboard />} />
+          {/* <Route path="/teacher-dashboard" element={<TeacherDashboard />} /> */}
           <Route path="/contacts" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about-us" element={<About />} />
@@ -61,6 +61,7 @@ const App = () => {
           {/* ✅ Protected route example */}
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>
           <Route path="/announcements" element={<ProtectedRoute> <NewsEventForm/>  </ProtectedRoute> }/>
+          <Route path="/teacher-dashboard" element={<ProtectedRoute> <TeacherDashboard/>  </ProtectedRoute> }/>
           <Route path="/dashboard" element={<ProtectedRoute> <Dashboard />  </ProtectedRoute> }/>
 
           {/* Optional: handle 404s */}
