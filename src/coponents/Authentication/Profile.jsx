@@ -183,7 +183,7 @@ const Profile = () => {
 
   const MobileMenuButton = () => (
     <button 
-      className="mobile-menu-btn"
+      className="profile-mobile-menu-btn"
       onClick={() => setShowMobileMenu(!showMobileMenu)}
     >
       ☰
@@ -191,46 +191,46 @@ const Profile = () => {
   );
 
   const TabNavigation = () => (
-    <nav className="sidebar-nav">
+    <nav className="profile-sidebar-nav">
       <button 
-        className={`nav-item ${activeTab === "profile" ? "active" : ""}`}
+        className={`profile-nav-item ${activeTab === "profile" ? "profile-nav-active" : ""}`}
         onClick={() => {
           setActiveTab("profile");
           setShowMobileMenu(false);
         }}
       >
-        <span className="nav-icon">📝</span>
-        <span className="nav-text">Personal Info</span>
+        <span className="profile-nav-icon">📝</span>
+        <span className="profile-nav-text">Personal Info</span>
       </button>
       <button 
-        className={`nav-item ${activeTab === "preferences" ? "active" : ""}`}
+        className={`profile-nav-item ${activeTab === "preferences" ? "profile-nav-active" : ""}`}
         onClick={() => {
           setActiveTab("preferences");
           setShowMobileMenu(false);
         }}
       >
-        <span className="nav-icon">⚙️</span>
-        <span className="nav-text">Preferences</span>
+        <span className="profile-nav-icon">⚙️</span>
+        <span className="profile-nav-text">Preferences</span>
       </button>
       <button 
-        className={`nav-item ${activeTab === "security" ? "active" : ""}`}
+        className={`profile-nav-item ${activeTab === "security" ? "profile-nav-active" : ""}`}
         onClick={() => {
           setActiveTab("security");
           setShowMobileMenu(false);
         }}
       >
-        <span className="nav-icon">🔒</span>
-        <span className="nav-text">Security</span>
+        <span className="profile-nav-icon">🔒</span>
+        <span className="profile-nav-text">Security</span>
       </button>
       <button 
-        className={`nav-item ${activeTab === "danger" ? "active" : ""}`}
+        className={`profile-nav-item ${activeTab === "danger" ? "profile-nav-active" : ""}`}
         onClick={() => {
           setActiveTab("danger");
           setShowMobileMenu(false);
         }}
       >
-        <span className="nav-icon">🚨</span>
-        <span className="nav-text">Danger Zone</span>
+        <span className="profile-nav-icon">🚨</span>
+        <span className="profile-nav-text">Danger Zone</span>
       </button>
     </nav>
   );
@@ -239,48 +239,56 @@ const Profile = () => {
     <div className="profile-container">
       {/* MOBILE HEADER */}
       {isMobile && (
-        <div className="mobile-header">
-          <div className="mobile-header-content">
+        <div className="profile-mobile-header">
+          <div className="profile-mobile-header-content">
             <MobileMenuButton />
-            <div className="mobile-title">
+            <div className="profile-mobile-title">
               <h1>Profile</h1>
-              <span className="mobile-role">{role}</span>
+              <span className="profile-mobile-role">{role}</span>
             </div>
             <img
               src={getProfilePhotoUrl(profile?.profile_photo)}
               alt="Profile"
-              className="mobile-avatar"
+              className="profile-mobile-avatar"
               onClick={() => setShowMobileMenu(!showMobileMenu)}
             />
           </div>
         </div>
       )}
 
-      {/* SIDEBAR - Hidden on mobile when menu is closed */}
-      <div className={`profile-sidebar ${isMobile ? 'mobile' : ''} ${showMobileMenu ? 'mobile-open' : ''}`}>
+      {/* SIDEBAR - Fixed click handling */}
+      <div 
+        className={`profile-sidebar ${isMobile ? 'profile-sidebar-mobile' : ''} ${showMobileMenu ? 'profile-sidebar-mobile-open' : ''}`}
+        onClick={(e) => {
+          // Only close if clicking the backdrop (the sidebar itself in mobile mode)
+          if (isMobile && e.target === e.currentTarget) {
+            setShowMobileMenu(false);
+          }
+        }}
+      >
         {/* Mobile Overlay */}
         {isMobile && showMobileMenu && (
           <div 
-            className="mobile-overlay"
+            className="profile-mobile-overlay"
             onClick={() => setShowMobileMenu(false)}
           />
         )}
         
-        <div className="sidebar-content">
-          <div className="sidebar-header">
+        <div className="profile-sidebar-content" onClick={(e) => isMobile && e.stopPropagation()}>
+          <div className="profile-sidebar-header">
             <img
               src={getProfilePhotoUrl(profile?.profile_photo)}
               alt="Profile"
-              className="sidebar-photo"
+              className="profile-sidebar-photo"
             />
-            <div className="sidebar-user-info">
+            <div className="profile-sidebar-user-info">
               <h3>{profile?.username}</h3>
-              <span className="role-badge">{role}</span>
+              <span className="profile-role-badge">{role}</span>
               <p>{profile?.email}</p>
             </div>
             {isMobile && (
               <button 
-                className="close-mobile-menu"
+                className="profile-close-mobile-menu"
                 onClick={() => setShowMobileMenu(false)}
               >
                 ✕
@@ -298,13 +306,13 @@ const Profile = () => {
         {activeTab === "profile" && (
           <>
             {!isMobile && (
-              <div className="profile-header">
-                <div className="header-left">
+              <div className="profile-content-header">
+                <div className="profile-header-left">
                   <h1>Profile Information</h1>
                   <p>Manage your personal information and how others see you</p>
                 </div>
                 <button 
-                  className={`btn-edit ${isEditing ? "editing" : ""}`}
+                  className={`profile-btn-edit ${isEditing ? "profile-btn-editing" : ""}`}
                   onClick={() => setIsEditing(!isEditing)}
                 >
                   {isEditing ? "✕ Cancel" : "✏️ Edit Profile"}
@@ -313,10 +321,10 @@ const Profile = () => {
             )}
 
             {isMobile && (
-              <div className="mobile-content-header">
+              <div className="profile-mobile-content-header">
                 <h2>Personal Info</h2>
                 <button 
-                  className={`btn-edit mobile ${isEditing ? "editing" : ""}`}
+                  className={`profile-btn-edit profile-btn-edit-mobile ${isEditing ? "profile-btn-editing" : ""}`}
                   onClick={() => setIsEditing(!isEditing)}
                 >
                   {isEditing ? "Cancel" : "Edit"}
@@ -325,23 +333,23 @@ const Profile = () => {
             )}
 
             <div className="profile-section">
-              <div className="photo-section">
-                <div className="photo-container">
+              <div className="profile-photo-section">
+                <div className="profile-photo-container">
                   <img
                     src={getProfilePhotoUrl(profile?.profile_photo)}
                     alt="Profile"
-                    className="profile-photo"
+                    className="profile-main-photo"
                   />
-                  <label className="photo-upload-btn">
-                    <span className="btn-icon">📷</span>
-                    <span className="btn-text">Change Photo</span>
+                  <label className="profile-photo-upload-btn">
+                    <span className="profile-btn-icon">📷</span>
+                    <span className="profile-btn-text">Change Photo</span>
                     <input type="file" hidden onChange={handlePhotoUpload} accept="image/*" />
                   </label>
                 </div>
               </div>
 
-              <div className="form-grid">
-                <div className="form-group">
+              <div className="profile-form-grid">
+                <div className="profile-form-group">
                   <label>Username</label>
                   <input
                     type="text"
@@ -352,7 +360,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="profile-form-group">
                   <label>Email</label>
                   <input
                     type="email"
@@ -362,7 +370,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="profile-form-group">
                   <label>Phone</label>
                   <input
                     type="tel"
@@ -373,7 +381,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="profile-form-group">
                   <label>Gender</label>
                   <select
                     value={formData.gender}
@@ -388,7 +396,7 @@ const Profile = () => {
                   </select>
                 </div>
 
-                <div className="form-group full-width">
+                <div className="profile-form-group profile-form-full-width">
                   <label>Bio</label>
                   <textarea
                     value={formData.bio}
@@ -399,7 +407,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="profile-form-group">
                   <label>Location</label>
                   <input
                     type="text"
@@ -412,8 +420,8 @@ const Profile = () => {
               </div>
 
               {isEditing && (
-                <button className="btn-save full-width-mobile" onClick={handleProfileUpdate}>
-                  <span className="btn-icon">💾</span>
+                <button className="profile-btn-save profile-btn-full-width-mobile" onClick={handleProfileUpdate}>
+                  <span className="profile-btn-icon">💾</span>
                   Save Changes
                 </button>
               )}
@@ -423,16 +431,16 @@ const Profile = () => {
             <div className="profile-section">
               <h3>Role Information</h3>
               {role === "student" && (
-                <div className="info-grid">
-                  <div className="info-item">
+                <div className="profile-info-grid">
+                  <div className="profile-info-item">
                     <label>Class</label>
                     <span>{profile?.class_name || "N/A"}</span>
                   </div>
-                  <div className="info-item">
+                  <div className="profile-info-item">
                     <label>Admission Number</label>
                     <span>{profile?.admission_number || "N/A"}</span>
                   </div>
-                  <div className="info-item">
+                  <div className="profile-info-item">
                     <label>Academic Year</label>
                     <span>{profile?.academic_year || "N/A"}</span>
                   </div>
@@ -440,16 +448,16 @@ const Profile = () => {
               )}
 
               {role === "teacher" && (
-                <div className="info-grid">
-                  <div className="info-item">
+                <div className="profile-info-grid">
+                  <div className="profile-info-item">
                     <label>Department</label>
                     <span>{profile?.department || "N/A"}</span>
                   </div>
-                  <div className="info-item">
+                  <div className="profile-info-item">
                     <label>Subjects</label>
                     <span>{profile?.subjects || "N/A"}</span>
                   </div>
-                  <div className="info-item">
+                  <div className="profile-info-item">
                     <label>Employee ID</label>
                     <span>{profile?.employee_id || "N/A"}</span>
                   </div>
@@ -457,12 +465,12 @@ const Profile = () => {
               )}
 
               {role === "admin" && (
-                <div className="info-grid">
-                  <div className="info-item">
+                <div className="profile-info-grid">
+                  <div className="profile-info-item">
                     <label>Access Level</label>
-                    <span className="badge-admin">Full System Access</span>
+                    <span className="profile-badge-admin">Full System Access</span>
                   </div>
-                  <div className="info-item">
+                  <div className="profile-info-item">
                     <label>Admin Since</label>
                     <span>{profile?.admin_since || "N/A"}</span>
                   </div>
@@ -472,12 +480,11 @@ const Profile = () => {
           </>
         )}
 
-        {/* Other tabs remain the same but with mobile enhancements */}
         {/* PREFERENCES TAB */}
         {activeTab === "preferences" && (
           <>
-            <div className="profile-header">
-              <div className="header-left">
+            <div className="profile-content-header">
+              <div className="profile-header-left">
                 <h1>Preferences</h1>
                 <p>Customize your experience</p>
               </div>
@@ -485,26 +492,26 @@ const Profile = () => {
 
             <div className="profile-section">
               <h3>Theme Settings</h3>
-              <div className="theme-selector">
+              <div className="profile-theme-selector">
                 <div 
-                  className={`theme-option ${theme === "light" ? "active" : ""}`}
+                  className={`profile-theme-option ${theme === "light" ? "profile-theme-active" : ""}`}
                   onClick={() => handleThemeChange("light")}
                 >
-                  <div className="theme-preview light-theme"></div>
+                  <div className="profile-theme-preview profile-theme-light"></div>
                   <span>Light</span>
                 </div>
                 <div 
-                  className={`theme-option ${theme === "dark" ? "active" : ""}`}
+                  className={`profile-theme-option ${theme === "dark" ? "profile-theme-active" : ""}`}
                   onClick={() => handleThemeChange("dark")}
                 >
-                  <div className="theme-preview dark-theme"></div>
+                  <div className="profile-theme-preview profile-theme-dark"></div>
                   <span>Dark</span>
                 </div>
                 <div 
-                  className={`theme-option ${theme === "auto" ? "active" : ""}`}
+                  className={`profile-theme-option ${theme === "auto" ? "profile-theme-active" : ""}`}
                   onClick={() => handleThemeChange("auto")}
                 >
-                  <div className="theme-preview auto-theme"></div>
+                  <div className="profile-theme-preview profile-theme-auto"></div>
                   <span>Auto</span>
                 </div>
               </div>
@@ -512,7 +519,7 @@ const Profile = () => {
 
             <div className="profile-section">
               <h3>Language & Region</h3>
-              <div className="form-group">
+              <div className="profile-form-group">
                 <label>Language</label>
                 <select
                   value={language}
@@ -528,49 +535,49 @@ const Profile = () => {
 
             <div className="profile-section">
               <h3>Notification Preferences</h3>
-              <div className="notification-settings">
-                <div className="notification-item">
-                  <div className="notification-info">
+              <div className="profile-notification-settings">
+                <div className="profile-notification-item">
+                  <div className="profile-notification-info">
                     <strong>Email Notifications</strong>
                     <p>Receive updates via email</p>
                   </div>
-                  <label className="toggle-switch">
+                  <label className="profile-toggle-switch">
                     <input
                       type="checkbox"
                       checked={notifications.email}
                       onChange={() => handleNotificationToggle("email")}
                     />
-                    <span className="toggle-slider"></span>
+                    <span className="profile-toggle-slider"></span>
                   </label>
                 </div>
 
-                <div className="notification-item">
-                  <div className="notification-info">
+                <div className="profile-notification-item">
+                  <div className="profile-notification-info">
                     <strong>Push Notifications</strong>
                     <p>Get browser notifications</p>
                   </div>
-                  <label className="toggle-switch">
+                  <label className="profile-toggle-switch">
                     <input
                       type="checkbox"
                       checked={notifications.push}
                       onChange={() => handleNotificationToggle("push")}
                     />
-                    <span className="toggle-slider"></span>
+                    <span className="profile-toggle-slider"></span>
                   </label>
                 </div>
 
-                <div className="notification-item">
-                  <div className="notification-info">
+                <div className="profile-notification-item">
+                  <div className="profile-notification-info">
                     <strong>SMS Notifications</strong>
                     <p>Text message updates</p>
                   </div>
-                  <label className="toggle-switch">
+                  <label className="profile-toggle-switch">
                     <input
                       type="checkbox"
                       checked={notifications.sms}
                       onChange={() => handleNotificationToggle("sms")}
                     />
-                    <span className="toggle-slider"></span>
+                    <span className="profile-toggle-slider"></span>
                   </label>
                 </div>
               </div>
@@ -581,15 +588,15 @@ const Profile = () => {
         {/* SECURITY TAB */}
         {activeTab === "security" && (
           <>
-            <div className="profile-header">
+            <div className="profile-content-header">
               <h1>Security Settings</h1>
               <p>Manage your password and security preferences</p>
             </div>
 
             <div className="profile-section">
               <h3>Change Password</h3>
-              <div className="form-grid">
-                <div className="form-group full-width-mobile">
+              <div className="profile-form-grid">
+                <div className="profile-form-group profile-form-full-width-mobile">
                   <label>Current Password</label>
                   <input
                     type="password"
@@ -604,7 +611,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group full-width-mobile">
+                <div className="profile-form-group profile-form-full-width-mobile">
                   <label>New Password</label>
                   <input
                     type="password"
@@ -616,7 +623,7 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className="form-group full-width-mobile">
+                <div className="profile-form-group profile-form-full-width-mobile">
                   <label>Confirm New Password</label>
                   <input
                     type="password"
@@ -632,8 +639,8 @@ const Profile = () => {
                 </div>
               </div>
 
-              <button className="btn-save full-width-mobile" onClick={handlePasswordChange}>
-                <span className="btn-icon">🔒</span>
+              <button className="profile-btn-save profile-btn-full-width-mobile" onClick={handlePasswordChange}>
+                <span className="profile-btn-icon">🔒</span>
                 Change Password
               </button>
             </div>
@@ -641,8 +648,8 @@ const Profile = () => {
             <div className="profile-section">
               <h3>Session Management</h3>
               <p>You're currently logged in on this device.</p>
-              <button className="btn-secondary full-width-mobile" onClick={() => alert("This would log out all other sessions")}>
-                <span className="btn-icon">🚪</span>
+              <button className="profile-btn-secondary profile-btn-full-width-mobile" onClick={() => alert("This would log out all other sessions")}>
+                <span className="profile-btn-icon">🚪</span>
                 Log Out Other Sessions
               </button>
             </div>
@@ -652,30 +659,30 @@ const Profile = () => {
         {/* DANGER ZONE TAB */}
         {activeTab === "danger" && (
           <>
-            <div className="profile-header">
+            <div className="profile-content-header">
               <h1>Danger Zone</h1>
               <p>Irreversible actions - proceed with caution</p>
             </div>
 
-            <div className="profile-section danger-zone">
-              <div className="danger-item">
-                <div className="danger-info">
+            <div className="profile-section profile-danger-zone">
+              <div className="profile-danger-item">
+                <div className="profile-danger-info">
                   <h4>Export Your Data</h4>
                   <p>Download all your personal data in JSON format</p>
                 </div>
-                <button className="btn-warning full-width-mobile" onClick={exportData}>
-                  <span className="btn-icon">📥</span>
+                <button className="profile-btn-warning profile-btn-full-width-mobile" onClick={exportData}>
+                  <span className="profile-btn-icon">📥</span>
                   Export Data
                 </button>
               </div>
 
-              <div className="danger-item">
-                <div className="danger-info">
+              <div className="profile-danger-item">
+                <div className="profile-danger-info">
                   <h4>Delete Account</h4>
                   <p>Permanently delete your account and all associated data</p>
                 </div>
-                <button className="btn-danger full-width-mobile" onClick={deleteAccount}>
-                  <span className="btn-icon">🗑️</span>
+                <button className="profile-btn-danger profile-btn-full-width-mobile" onClick={deleteAccount}>
+                  <span className="profile-btn-icon">🗑️</span>
                   Delete Account
                 </button>
               </div>
