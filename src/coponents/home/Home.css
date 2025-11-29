@@ -11,13 +11,18 @@
   padding: 0 20px;
 }
 
-/* Welcome Section */
-.mhs-welcome-section {
-  padding: 80px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+.mhs-main-content {
+  width: 100%;
 }
 
-.mhs-welcome-content {
+/* Classroom Section */
+.mhs-classroom-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+}
+
+.mhs-classroom-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -27,50 +32,40 @@
 .mhs-section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: white;
   margin-bottom: 16px;
   line-height: 1.2;
 }
 
 .mhs-section-subtitle {
   font-size: 1.25rem;
-  color: #64748b;
+  color: #cbd5e1;
   margin-bottom: 24px;
   font-weight: 500;
 }
 
-.mhs-welcome-description {
-  font-size: 1.125rem;
-  color: #475569;
-  margin-bottom: 32px;
-  line-height: 1.7;
-}
-
-.mhs-welcome-stats {
-  display: flex;
-  gap: 40px;
+.mhs-feature-list {
+  list-style: none;
+  padding: 0;
   margin: 32px 0;
-  padding: 24px 0;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
 }
 
-.mhs-stat-item {
-  text-align: center;
+.mhs-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 1.125rem;
+  border-bottom: 1px solid #334155;
+  color: #e2e8f0;
 }
 
-.mhs-stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #3b82f6;
-  margin-bottom: 4px;
+.mhs-feature-item:last-child {
+  border-bottom: none;
 }
 
-.mhs-stat-label {
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 500;
+.mhs-feature-icon {
+  font-size: 1.5rem;
 }
 
 /* Buttons */
@@ -101,205 +96,11 @@
   font-size: 1.125rem;
 }
 
-.mhs-secondary-button {
-  background: white;
-  color: #3b82f6;
-  border: 2px solid #3b82f6;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.mhs-secondary-button:hover {
-  background: #3b82f6;
-  color: white;
-  transform: translateY(-1px);
-}
-
-.mhs-text-button {
-  background: none;
-  border: none;
-  color: #3b82f6;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.3s ease;
-}
-
-.mhs-text-button:hover {
-  color: #1d4ed8;
-}
-
 .mhs-button-icon {
   font-size: 1.25rem;
 }
 
-/* Welcome Visual */
-.mhs-welcome-visual {
-  display: flex;
-  justify-content: center;
-}
-
-.mhs-visual-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
-  max-width: 300px;
-}
-
-.mhs-card-image {
-  height: 160px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 8px;
-  margin-bottom: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mhs-card-image::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>') center/40px no-repeat;
-  opacity: 0.2;
-}
-
-.mhs-card-content h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 8px;
-}
-
-.mhs-card-content p {
-  color: #64748b;
-  font-size: 0.875rem;
-}
-
-/* News Section */
-.mhs-news-section {
-  padding: 80px 0;
-  background: white;
-}
-
-.mhs-section-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.mhs-news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin-bottom: 48px;
-}
-
-.mhs-news-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f1f5f9;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.mhs-news-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-}
-
-.mhs-news-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #10b981;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.mhs-news-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-
-.mhs-news-meta {
-  margin-bottom: 16px;
-}
-
-.mhs-news-date {
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 500;
-}
-
-.mhs-news-excerpt {
-  color: #475569;
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.mhs-section-footer {
-  text-align: center;
-}
-
-/* Classroom Section */
-.mhs-classroom-section {
-  padding: 80px 0;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  color: white;
-}
-
-.mhs-classroom-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.mhs-classroom-section .mhs-section-title,
-.mhs-classroom-section .mhs-section-subtitle {
-  color: white;
-}
-
-.mhs-feature-list {
-  list-style: none;
-  padding: 0;
-  margin: 32px 0;
-}
-
-.mhs-feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  font-size: 1.125rem;
-  border-bottom: 1px solid #334155;
-}
-
-.mhs-feature-item:last-child {
-  border-bottom: none;
-}
-
-.mhs-feature-icon {
-  font-size: 1.5rem;
-}
-
+/* Classroom Visual */
 .mhs-classroom-visual {
   display: flex;
   justify-content: center;
@@ -348,7 +149,6 @@
 
 /* Responsive Design */
 @media (max-width: 968px) {
-  .mhs-welcome-content,
   .mhs-classroom-content {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -357,10 +157,6 @@
   .mhs-section-title {
     font-size: 2rem;
   }
-  
-  .mhs-news-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 768px) {
@@ -368,18 +164,19 @@
     padding: 0 16px;
   }
   
-  .mhs-welcome-section,
-  .mhs-news-section,
   .mhs-classroom-section {
     padding: 60px 0;
   }
   
-  .mhs-welcome-stats {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
   .mhs-section-title {
     font-size: 1.75rem;
+  }
+  
+  .mhs-feature-item {
+    font-size: 1rem;
+  }
+  
+  .mhs-platform-preview {
+    max-width: 100%;
   }
 }

@@ -32,6 +32,7 @@ import Clubs from "./coponents/Activities/Clubs";
 import Profile from "./coponents/Authentication/Profile";
 import Profil from "./coponents/Authentication/Settings";
 import Settings from "./coponents/Authentication/Settings";
+import StudentLife from "./coponents/Studentlife/Studentlife";
 // import StudentLogin from "./coponents/Student/StudentLogin";
 const App = () => {
   return (
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/pro" element={<Profil/>}/>
           <Route path="/reset" element={<RequestReset />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/student-life" element={<StudentLife />} />
 
           {/* ✅ Protected route example */}
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>
