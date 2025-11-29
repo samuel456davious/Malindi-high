@@ -273,6 +273,7 @@ const Navigation = () => {
                                   key={item.name}
                                   href={item.href}
                                   className="mhs-menu-item"
+                                  onClick={handleLinkClick}
                                 >
                                   <div className="mhs-menu-icon-wrapper">
                                     <IconComponent className="mhs-menu-icon" size={18} />
@@ -319,6 +320,7 @@ const Navigation = () => {
                                   key={item.name}
                                   href={item.href}
                                   className="mhs-menu-item"
+                                  onClick={handleLinkClick}
                                 >
                                   <div className="mhs-menu-icon-wrapper">
                                     <IconComponent className="mhs-menu-icon" size={18} />
@@ -340,6 +342,7 @@ const Navigation = () => {
                 <a
                   className="mhs-dashboard-btn"
                   href={getDashboardUrl()}
+                  onClick={handleLinkClick}
                 >
                   <span className="mhs-btn-text">{isAuthenticated ? "Dashboard" : "Get Started"}</span>
                   <div className="mhs-btn-glow"></div>
@@ -400,65 +403,23 @@ const Navigation = () => {
                   </div>
                 </button>
 
-                {/* Mobile Profile Dropdown - Patched */}
+                {/* Mobile Profile Dropdown - FIXED: Now displays inline */}
                 {isMobileProfileOpen && (
-                  <div className="mhs-mobile-profile-overlay">
-                    <div className="mhs-mobile-profile-dropdown">
-                      <div className="mhs-mobile-profile-menu">
-                        {isAuthenticated ? (
-                          <>
-                            <div className="mhs-mobile-menu-section">
-                              <h4 className="mhs-mobile-menu-title">Account</h4>
-                              <div className="mhs-mobile-menu-items">
-                                {profileMenuItems.map((item) => {
-                                  const IconComponent = item.icon;
-                                  return (
-                                    <a
-                                      key={item.name}
-                                      href={item.href}
-                                      className="mhs-mobile-menu-item"
-                                      onClick={(e) => e.stopPropagation()} // <-- PATCHED: prevent closing
-                                    >
-                                      <div className="mhs-mobile-menu-icon">
-                                        <IconComponent size={20} />
-                                      </div>
-                                      <span className="mhs-mobile-menu-text">{item.name}</span>
-                                      <ChevronRight className="mhs-mobile-menu-arrow" size={16} />
-                                    </a>
-                                  );
-                                })}
-                              </div>
-                            </div>
-
-                            <div className="mhs-mobile-menu-divider"></div>
-
-                            <div className="mhs-mobile-menu-section">
-                              <div className="mhs-mobile-menu-items">
-                                <button
-                                  className="mhs-mobile-menu-item mhs-mobile-menu-item--logout"
-                                  onClick={() => handleAuthAction("logout")}
-                                >
-                                  <div className="mhs-mobile-menu-icon">
-                                    <LogOut size={20} />
-                                  </div>
-                                  <span className="mhs-mobile-menu-text">Sign Out</span>
-                                  <ChevronRight className="mhs-mobile-menu-arrow" size={16} />
-                                </button>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
+                  <div className="mhs-mobile-profile-dropdown">
+                    <div className="mhs-mobile-profile-menu">
+                      {isAuthenticated ? (
+                        <>
                           <div className="mhs-mobile-menu-section">
-                            <h4 className="mhs-mobile-menu-title">Get Started</h4>
+                            <h4 className="mhs-mobile-menu-title">Account</h4>
                             <div className="mhs-mobile-menu-items">
-                              {authMenuItems.map((item) => {
+                              {profileMenuItems.map((item) => {
                                 const IconComponent = item.icon;
                                 return (
                                   <a
                                     key={item.name}
                                     href={item.href}
                                     className="mhs-mobile-menu-item"
-                                    onClick={(e) => e.stopPropagation()} // <-- PATCHED
+                                    onClick={handleLinkClick}
                                   >
                                     <div className="mhs-mobile-menu-icon">
                                       <IconComponent size={20} />
@@ -470,8 +431,48 @@ const Navigation = () => {
                               })}
                             </div>
                           </div>
-                        )}
-                      </div>
+
+                          <div className="mhs-mobile-menu-divider"></div>
+
+                          <div className="mhs-mobile-menu-section">
+                            <div className="mhs-mobile-menu-items">
+                              <button
+                                className="mhs-mobile-menu-item mhs-mobile-menu-item--logout"
+                                onClick={() => handleAuthAction("logout")}
+                              >
+                                <div className="mhs-mobile-menu-icon">
+                                  <LogOut size={20} />
+                                </div>
+                                <span className="mhs-mobile-menu-text">Sign Out</span>
+                                <ChevronRight className="mhs-mobile-menu-arrow" size={16} />
+                              </button>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="mhs-mobile-menu-section">
+                          <h4 className="mhs-mobile-menu-title">Get Started</h4>
+                          <div className="mhs-mobile-menu-items">
+                            {authMenuItems.map((item) => {
+                              const IconComponent = item.icon;
+                              return (
+                                <a
+                                  key={item.name}
+                                  href={item.href}
+                                  className="mhs-mobile-menu-item"
+                                  onClick={handleLinkClick}
+                                >
+                                  <div className="mhs-mobile-menu-icon">
+                                    <IconComponent size={20} />
+                                  </div>
+                                  <span className="mhs-mobile-menu-text">{item.name}</span>
+                                  <ChevronRight className="mhs-mobile-menu-arrow" size={16} />
+                                </a>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
