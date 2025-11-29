@@ -30,6 +30,8 @@ import Rugby from "./coponents/Activities/Rugby";
 import Hockey from "./coponents/Activities/Hockey";
 import Clubs from "./coponents/Activities/Clubs";
 import Profile from "./coponents/Authentication/Profile";
+import Profil from "./coponents/Authentication/Settings";
+import Settings from "./coponents/Authentication/Settings";
 // import StudentLogin from "./coponents/Student/StudentLogin";
 const App = () => {
   return (
@@ -55,7 +57,7 @@ const App = () => {
           <Route path="/pending_users" element={<PendingUsers/>}/>
           <Route path="/approve" element={<ApproveUser/>}/>
           <Route path="/register" element={<Register/>}/>
-          {/* <Route path="/reset" element={<ResetAccount/>}/> */}
+          <Route path="/pro" element={<Profil/>}/>
           <Route path="/reset" element={<RequestReset />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
@@ -63,6 +65,7 @@ const App = () => {
           <Route path="/classroom" element={<ProtectedRoute> <Classroom />  </ProtectedRoute> }/>
           <Route path="/announcements" element={<ProtectedRoute> <NewsEventForm/>  </ProtectedRoute> }/>
           <Route path="/teacher-dashboard" element={<ProtectedRoute> <TeacherDashboard/>  </ProtectedRoute> }/>
+          <Route path="/settings" element={<ProtectedRoute> <Settings/>  </ProtectedRoute> }/>
           <Route path="/profile" element={<ProtectedRoute> <Profile/>  </ProtectedRoute> }/>
           <Route path="/dashboard" element={<ProtectedRoute> <Dashboard />  </ProtectedRoute> }/>
 
