@@ -14,7 +14,7 @@ import SDA from "./coponents/Chaplaincy/SDA";
 import ProtectedRoute from "./coponents/Authentication/ProtectedRoute";
 import { AuthProvider } from "./coponents/Authentication/AuthContext";
 import Login from "./coponents/Authentication/Login"
-import Dashboard from "./coponents/Secretary/Dashboard"
+import Dashboard from "./coponents/Secretary/Dashboard/Dashboard";
 import PendingUsers from "./coponents/Secretary/PendingUsers";
 import Register from "./coponents/Authentication/Register";
 import ApproveUser from "./coponents/Secretary/ApproveUser";
@@ -22,7 +22,7 @@ import ResetAccount from "./coponents/Authentication/ResetAccount";
 import ResetPassword from "./coponents/Authentication/ResetPassword";
 import RequestReset from "./coponents/Authentication/RequestReset";
 import TeacherDashboard from "./coponents/Teachers/TeachersDashboard";
-import NewsEventForm from "./coponents/Secretary/NewsEventForm";
+import NewsEventForm from "./coponents/Secretary/NewsEvents/NewsEventForm";
 import StudentPortal from "./coponents/Student/StudentPortal";
 import Football from "./coponents/Activities/Football";
 import Basketball from "./coponents/Activities/Basketball";

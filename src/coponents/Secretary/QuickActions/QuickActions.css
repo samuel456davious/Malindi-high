@@ -1,0 +1,111 @@
+.quick-actions {
+  background: var(--dashboard-card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--dashboard-shadow);
+  border: 1px solid var(--dashboard-border-primary);
+}
+
+.quick-actions__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dashboard-text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--dashboard-border-primary);
+}
+
+.quick-actions__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-actions__card-link {
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.quick-actions__card-link:hover {
+  transform: translateY(-2px);
+}
+
+.quick-actions__card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: var(--dashboard-card-bg);
+  border: 1px solid var(--dashboard-border-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-actions__card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: currentColor;
+}
+
+.quick-actions__card:hover {
+  box-shadow: var(--dashboard-shadow-hover);
+}
+
+.quick-actions__card--primary { color: var(--dashboard-accent-primary); }
+.quick-actions__card--secondary { color: var(--dashboard-accent-secondary); }
+.quick-actions__card--info { color: var(--dashboard-accent-secondary); }
+.quick-actions__card--warning { color: var(--dashboard-accent-warning); }
+.quick-actions__card--success { color: var(--dashboard-accent-success); }
+
+.quick-actions__card-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.quick-actions__card-content {
+  flex: 1;
+}
+
+.quick-actions__card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dashboard-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.quick-actions__card-description {
+  font-size: 0.9rem;
+  color: var(--dashboard-text-secondary);
+  line-height: 1.5;
+}
+
+.quick-actions__card-arrow {
+  font-size: 1.25rem;
+  color: var(--dashboard-text-tertiary);
+  transition: transform 0.2s ease;
+}
+
+.quick-actions__card:hover .quick-actions__card-arrow {
+  transform: translateX(4px);
+  color: currentColor;
+}
+
+@media (max-width: 768px) {
+  .quick-actions__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions__card {
+    padding: 1rem;
+  }
+
+  .quick-actions__card-icon {
+    font-size: 1.5rem;
+  }
+}

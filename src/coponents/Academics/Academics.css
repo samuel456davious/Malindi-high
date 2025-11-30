@@ -6,6 +6,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .academics-section::before {
@@ -38,15 +39,19 @@
 
 .academics-container {
   width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   position: relative;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* ====== HEADER ENHANCEMENTS ====== */
 .academics-header {
   text-align: center;
   margin-bottom: 70px;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .academics-badge {
@@ -117,14 +122,16 @@
   letter-spacing: 0.5px;
 }
 
-/* ====== ENHANCED GRID ====== */
+/* ====== FIXED GRID - NO HORIZONTAL SCROLL ====== */
 .academics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   gap: 30px;
   margin-bottom: 80px;
-  padding: 0 2rem;
+  padding: 0 1rem;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* ====== PREMIUM DEPARTMENT CARD ====== */
@@ -132,7 +139,7 @@
   background: var(--card-bg, #FFFFFF);
   border: 1px solid var(--border-primary, #E2E8F0);
   border-radius: 20px;
-  padding: 30px;
+  padding: 25px;
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -140,6 +147,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0; /* Prevent flex item overflow */
 }
 
 .department-card::before {
@@ -171,6 +181,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .department-icon-wrapper {
@@ -181,6 +192,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .department-card:hover .department-icon-wrapper {
@@ -198,9 +210,14 @@
   font-size: 0.75rem;
   font-weight: 600;
   border: 1px solid var(--border-primary, #E2E8F0);
+  flex-shrink: 0;
 }
 
 /* Card Content */
+.department-content {
+  width: 100%;
+}
+
 .department-content h3 {
   font-family: 'Inter', sans-serif;
   font-size: 1.4rem;
@@ -208,12 +225,14 @@
   color: var(--text-primary, #1E293B);
   margin-bottom: 15px;
   line-height: 1.3;
+  word-wrap: break-word;
 }
 
 .subjects-list {
   list-style: none;
   padding: 0;
   margin: 0 0 20px;
+  width: 100%;
 }
 
 .subjects-list li {
@@ -223,11 +242,13 @@
   padding: 6px 0;
   color: var(--text-secondary, #475569);
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .subject-bullet {
   font-weight: bold;
   font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 /* Progress Indicator */
@@ -266,6 +287,7 @@
 /* Action Button */
 .department-actions {
   margin-top: auto;
+  width: 100%;
 }
 
 .learn-more-btn {
@@ -285,6 +307,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .learn-more-btn::before {
@@ -342,7 +365,9 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  margin: 0 2rem;
+  margin: 0 1rem;
+  box-sizing: border-box;
+  width: calc(100% - 2rem);
 }
 
 .academics-cta::before {
@@ -388,6 +413,7 @@
   transition: all 0.3s ease;
   border: 2px solid transparent;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .academics-cta-btn.primary {
@@ -413,13 +439,25 @@
 }
 
 /* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 1200px) {
+  .academics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 25px;
+    padding: 0 1.5rem;
+  }
+  
+  .academics-container {
+    padding: 0 15px;
+  }
+}
+
 @media (max-width: 768px) {
   .academics-section {
     padding: 60px 0;
   }
 
   .academics-header {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     margin-bottom: 50px;
   }
 
@@ -446,12 +484,13 @@
   }
 
   .department-card {
-    padding: 25px;
+    padding: 20px;
   }
 
   .academics-cta {
     padding: 30px 20px;
     margin: 0 1rem;
+    width: calc(100% - 2rem);
   }
 
   .academics-cta-content h3 {
@@ -470,6 +509,10 @@
 }
 
 @media (max-width: 480px) {
+  .academics-container {
+    padding: 0 10px;
+  }
+
   .academics-header h2 {
     font-size: 1.8rem;
   }
@@ -500,6 +543,20 @@
   .department-badge {
     align-self: flex-start;
   }
+
+  .academics-grid {
+    padding: 0 0.5rem;
+  }
+
+  .department-card {
+    padding: 15px;
+  }
+
+  .academics-cta {
+    margin: 0 0.5rem;
+    width: calc(100% - 1rem);
+    padding: 25px 15px;
+  }
 }
 
 /* Smooth theme transitions */
@@ -508,4 +565,13 @@
               border-color 0.3s ease, 
               color 0.3s ease, 
               box-shadow 0.3s ease;
+}
+
+/* Global fix to prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }

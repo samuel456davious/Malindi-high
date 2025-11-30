@@ -1,0 +1,99 @@
+.dashboard-stats {
+  background: var(--dashboard-card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--dashboard-shadow);
+  border: 1px solid var(--dashboard-border-primary);
+}
+
+.dashboard-stats__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--dashboard-text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--dashboard-border-primary);
+}
+
+.dashboard-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-stats__card-link {
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-stats__card-link:hover {
+  transform: translateY(-4px);
+}
+
+.dashboard-stats__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem;
+  border-radius: 12px;
+  background: var(--dashboard-card-bg);
+  box-shadow: var(--dashboard-shadow);
+  border: 1px solid var(--dashboard-border-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-stats__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, currentColor, transparent);
+}
+
+.dashboard-stats__card:hover {
+  box-shadow: var(--dashboard-shadow-hover);
+}
+
+.dashboard-stats__card--warning { color: var(--dashboard-accent-warning); }
+.dashboard-stats__card--success { color: var(--dashboard-accent-success); }
+.dashboard-stats__card--info { color: var(--dashboard-accent-secondary); }
+.dashboard-stats__card--primary { color: var(--dashboard-accent-primary); }
+
+.dashboard-stats__card-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.dashboard-stats__card-title {
+  font-size: 0.95rem;
+  color: var(--dashboard-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-stats__card-icon {
+  font-size: 2.5rem;
+  opacity: 0.8;
+  margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-stats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stats__card {
+    padding: 1.25rem;
+  }
+
+  .dashboard-stats__card-value {
+    font-size: 2rem;
+  }
+}
